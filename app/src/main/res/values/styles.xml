@@ -309,7 +309,7 @@
         <item name="width_percentage">8</item>
         <item name="height_percentage">6</item>
         <item name="android:scaleType">fitCenter</item>
-        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:src">@drawable/ic_media_play_light</item>
         <item name="android:layout_marginTop">@dimen/_6sdp</item>
     </style>
 
@@ -319,7 +319,7 @@
         <item name="android:layout_height">wrap_content</item>
 
         <item name="android:scaleType">fitCenter</item>
-        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:src">@drawable/ic_media_play_light</item>
         <item name="android:layout_marginTop">@dimen/_6sdp</item>
     </style>
 

@@ -78,7 +78,8 @@ class VideoAdapter(private val context: Context) : RecyclerView.Adapter<VideoAda
             binding.videoNombre.text = videosFiles.nombreVideo
             Glide.with(itemView.context).load(File(videosFiles.path)).into(binding.thumbnail)
             binding.duracionVideo.text = videosFiles.duracion
-           binding.videoMenu.setOnClickListener { borrarVideo(videosFiles) }
+            binding.videoMenu.visibility=View.INVISIBLE
+         //  binding.videoMenu.setOnClickListener { borrarVideo(videosFiles) }
         }
         fun borrarVideo(videosFiles: VideosFiles){
             var alertaDialog: AlertDialog.Builder = AlertDialog.Builder(itemView.context)

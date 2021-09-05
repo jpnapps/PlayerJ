@@ -47,8 +47,8 @@ class PlayActivity : AppCompatActivity() {
         if(path != null) {
             //val uri = Uri.parse(path)
             val uri=Uri.fromFile( File(path))
-            val simpleExoPlayer = SimpleExoPlayer.Builder(this).setSeekForwardIncrementMs(3000)
-                .setSeekBackIncrementMs(1000)
+            val simpleExoPlayer = SimpleExoPlayer.Builder(this).setSeekForwardIncrementMs(6000)
+                .setSeekBackIncrementMs(6000)
                 .build()
             val factory = DefaultDataSourceFactory(this,
                 Util.getUserAgent(this, getString(R.string.app_name)))

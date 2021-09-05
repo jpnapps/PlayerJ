@@ -61,8 +61,8 @@ class MainViewModel (
     }
 
     fun showPlayActivity(temp: Activity?=activity,path:String) =viewModelScope.launch {
-     //   val intent = Intent(temp, PlayActivity::class.java)
-        val intent = Intent(temp, CastPlayActivity::class.java)
+      val intent = Intent(temp, PlayActivity::class.java)
+      //  val intent = Intent(temp, CastPlayActivity::class.java)
         //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra("path", path)
         activity?.startActivity(intent)

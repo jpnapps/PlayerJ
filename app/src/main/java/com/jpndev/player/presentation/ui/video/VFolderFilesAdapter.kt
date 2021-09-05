@@ -27,8 +27,8 @@ class VistaVFolderAdapter(private val context: Context, private val carpetasVide
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.anadirViewHolder(carpetasVideosFiles[position])
         holder.itemView.setOnClickListener {
-           // val intent = Intent(context, VideoPlayerActivity::class.java)
-            val intent = Intent(context, CastPlayActivity::class.java)
+           val intent = Intent(context, PlayActivity::class.java)
+           // val intent = Intent(context, CastPlayActivity::class.java)
             intent.putExtra("path", carpetasVideosFiles[position].path)
             context.startActivity(intent)
         }
@@ -47,7 +47,7 @@ class VistaVFolderAdapter(private val context: Context, private val carpetasVide
             videoNombre.text = videosFiles.nombreVideo
             duracionVideo.text = videosFiles.duracion
             Glide.with(itemView.context).load(File(videosFiles.path)).into(thumbnail)
-            videoMenu.setOnClickListener { borrarVideo(videosFiles) }
+          //  videoMenu.setOnClickListener { borrarVideo(videosFiles) }
         }
         fun borrarVideo(videosFiles: VideosFiles){
             var alertaDialog: AlertDialog.Builder = AlertDialog.Builder(itemView.context)

@@ -10,6 +10,8 @@
 .DS_Store
 /build
 /captures
+/gradle.properties
+/app/build
 .externalNativeBuild
 .cxx
 local.properties
