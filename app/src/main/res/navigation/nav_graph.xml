@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation"
+            app:startDestination="@+id/navigation_folder_videos">
+
+<!--    <fragment
+        android:id="@+id/navigation_top_qa"
+        android:name="com.jpndev.player.presentation.ui.topqa.TopQAFragment"
+        android:label="@string/navigation_top_qa" />
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.jpndev.player.presentation.ui.topqa.TopQAFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />-->
+    <!--        tools:layout="@layout/fragment_home"-->
+
+    <fragment
+        android:id="@+id/navigation_folder_videos"
+        android:name="com.jpndev.player.presentation.ui.video.VFolderFragment"
+        android:label="@string/title_folder_videos"
+        tools:layout="@layout/fragment_vfolder"
+        />
+
+    <fragment
+        android:id="@+id/navigation_videos"
+        android:name="com.jpndev.player.presentation.ui.video.VideosFragment"
+        android:label="@string/title_videos"
+        tools:layout="@layout/fragment_vfolder"
+ />
+ <!--   <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.jpndev.player.presentation.ui.more.MoreFragment"
+
+        android:label="@string/title_more" />-->
+
+</navigation>

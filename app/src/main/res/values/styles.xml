@@ -1,0 +1,488 @@
+<resources>
+
+    <!-- Base application theme. -->
+<!--
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+-->
+    <!-- Base application theme. -->
+
+    <style name="NOCOLOR_MatchParent" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+
+    </style>
+
+    <style name="Base">
+        <item name="android:background">?attr/bg_1</item>
+    </style>
+    <style name="Base.MatchParent" parent="Base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+
+    <style name="Base_Home">
+        <item name="android:background">?attr/bg_home_1</item>
+    </style>
+    <style name="Base_Home.MatchParent" parent="Base_Home">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+
+    <style name="Base_Detail">
+        <item name="android:background">?attr/bg_detail_1</item>
+    </style>
+    <style name="Base_Detail.MatchParent" parent="Base_Detail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <style name="Base_List">
+        <item name="android:background">?attr/bg_list_1</item>
+    </style>
+    <style name="Base_List.MatchParent" parent="Base_List">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Base_RCV_TOP">
+        <item name="android:background">?attr/bg_rcv_item_1</item>
+    </style>
+    <style name="Base_RCV_TOP.MatchParent" parent="Base_RCV_TOP">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+    <!-- BOrder 1-->
+
+    <style name="Base_Border_1">
+        <item name="android:background">?attr/bg_border_1</item>
+
+    </style>
+
+    <style name="Base_Border_1.MPWP" parent="Base_Border_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Base_Border_1.WPMP" parent="Base_Border_1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Base_Border_1.MPMP" parent="Base_Border_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <!-- BOrder 2-->
+
+
+    <style name="Base_Border_2">
+        <item name="android:background">?attr/bg_border_2</item>
+    </style>
+
+    <style name="Base_Border_2.MPWP" parent="Base_Border_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Base_Border_2.WPMP" parent="Base_Border_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Base_Border_2.MPMP" parent="Base_Border_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- View_1-->
+
+    <style name="Base_View_1">
+        <item name="android:background">?attr/bg_view_1</item>
+    </style>
+
+    <style name="Base_View_1.MPWP" parent="Base_View_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Base_View_1.WPMP" parent="Base_View_1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Base_View_1.MPMP" parent="Base_View_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <!-- View_2-->
+
+    <style name="Base_View_2">
+        <item name="android:background">?attr/bg_view_2</item>
+    </style>
+
+    <style name="Base_View_2.MPWP" parent="Base_View_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Base_View_2.WPMP" parent="Base_View_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Base_View_2.MPMP" parent="Base_View_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+
+
+    <style name="Base_TXV_1" >
+
+        <item name="android:textColor">?attr/text_color_1</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+
+
+    <style name="Base_TXV_2" >
+
+        <item name="android:textColor">?attr/text_color_2</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+
+    <style name="Base_TXV_3" >
+
+        <item name="android:textColor">?attr/text_color_3</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+
+    <style name="Base_TXV_4" >
+
+        <item name="android:textColor">?attr/text_color_2</item>
+        <item name="android:fontFamily">@font/sofia_pro_medium</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+    <style name="Base_TXV_5" >
+
+        <item name="android:textColor">?attr/text_color_5</item>
+        <item name="android:fontFamily">@font/sofia_pro_light</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+
+    <style name="BASE_FAB_1" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@android:drawable/ic_input_add</item>
+        <item name="rippleColor">?attr/bg_fab_1</item>
+        <item name="backgroundTint">?attr/bg_fab_1</item>
+        <item name="iconTint">?attr/tint_1</item>
+    </style>
+
+    <!--        <item name="cardBackgroundColor">?attr/bg_card_1</item>-->
+    <style name="BASE_CARD_1" >
+
+
+        <item name="cardBackgroundColor">?attr/bg_card_1</item>
+        <item name="cardCornerRadius">@dimen/_10sdp</item>
+        <item name="cardElevation">@dimen/_6sdp</item>
+        <item name="cardMaxElevation">@dimen/_6sdp</item>
+        <item name="contentPadding">@dimen/_1sdp</item>
+    </style>
+
+    <style name="BASE_CARD_2" >
+
+
+        <item name="cardBackgroundColor">?attr/bg_card_2</item>
+        <item name="cardCornerRadius">@dimen/_10sdp</item>
+        <item name="cardElevation">@dimen/_3sdp</item>
+        <item name="cardMaxElevation">@dimen/_3sdp</item>
+        <item name="contentPadding">@dimen/_1sdp</item>
+    </style>
+
+    <style name="BASE_CARD_3" >
+
+
+        <item name="cardBackgroundColor">?attr/bg_fab_1</item>
+        <item name="cardCornerRadius">@dimen/_10sdp</item>
+        <item name="cardElevation">@dimen/_3sdp</item>
+        <item name="cardMaxElevation">@dimen/_3sdp</item>
+        <item name="contentPadding">@dimen/_1sdp</item>
+    </style>
+
+
+
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:paddingBottom">8dp</item>
+</style>
+    <style name="CardViewLayout" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="cardBackgroundColor">@color/app_white_bg</item>
+        <item name="cardCornerRadius">@dimen/_10sdp</item>
+        <item name="cardElevation">@dimen/_10sdp</item>
+        <item name="cardMaxElevation">@dimen/_10sdp</item>
+        <item name="contentPadding">@dimen/_1sdp</item>
+    </style>
+
+    <style name="NSV_Cardview_Child" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <style name="NSV_Cardview_Child.Padding" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:paddingBottom">@dimen/_10sdp</item>
+        <item name="android:paddingTop">@dimen/_10sdp</item>
+        <item name="android:paddingLeft">@dimen/_10sdp</item>
+        <item name="android:paddingRight">@dimen/_10sdp</item>
+    </style>
+
+
+    <style name="DIMV_Template1" >
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="parameter">fixed_ratio</item>
+        <item name="width_percentage">8</item>
+        <item name="height_percentage">6</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:layout_marginTop">@dimen/_6sdp</item>
+    </style>
+
+    <style name="IMV_Template1" >
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:layout_marginTop">@dimen/_6sdp</item>
+    </style>
+
+
+
+    <style name="txv_template_1" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:text">@string/small_text</item>
+
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <!--  <item name="android:textColor">?attr/primaryTextColor</item>-->
+    <style name="txv_template_2" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_template_3" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_sub_template_1" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+
+    <style name="txv_sub_template_2" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+
+    <style name="txv_sub_template_3" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_light</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+
+    <style name="txv_sub_template_4" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_light</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text6_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+
+    <style name="txv_sub_template_5" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_light</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_other_template_0" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text4_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_other_template_1" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text4_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_other_template_2" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/text4_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_other_template_3" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_22ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/cursor1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_other_template_4" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/cursor1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+
+    <style name="txv_other_template_5" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+    <style name="txv_other_template_6" >
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/sofia_pro_regular</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:text">@string/small_text</item>
+        <item name="android:textColor">@color/cursor1_color</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
+
+
+
+
+</resources>

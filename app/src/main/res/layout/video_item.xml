@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/top_rlay"
+    android:padding="@dimen/_2sdp"
+   >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardv"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardElevation="@dimen/_8sdp"
+        app:cardMaxElevation="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_10sdp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/video_item"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_122sdp"
+        android:id="@+id/img_thumbnail"
+    ><!--    app:cardCornerRadius="5dp"-->
+<!--        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
+            android:id="@+id/thumbnail"/>-->
+        <com.jpndev.utillibrary.DeviceFitImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher"
+            app:height_percentage="20"
+            app:parameter="fixed_ratio"
+            app:width_percentage="95" />
+
+        <TextView
+            android:id="@+id/duracion_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black"
+            android:padding="4dp"
+            android:text="4:00"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/video_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_below="@+id/img_thumbnail"
+android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="Nombre video"
+        android:textColor="@color/app_black_txt" />
+  <!--  <TextView
+        android:id="@+id/video_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/video_menu"
+        android:layout_toEndOf="@+id/img_thumbnail"
+        android:text="Nombre video"
+        android:textColor="@color/app_black_txt" />-->
+
+    <ImageView
+        android:id="@+id/video_menu"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+
+        android:padding="3dp"
+        android:src="@drawable/ic_baseline_more_vert_24" />
+</RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

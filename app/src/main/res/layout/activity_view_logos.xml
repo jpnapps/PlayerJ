@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.jpndev.player.presentation.ui.manage_log.ViewLogosViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_clay"
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Base_Home.MatchParent"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline_top"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03"/>
+
+
+
+
+        <com.jpndev.player.custom.DeviceFitImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/close_dimv"
+            app:height_percentage="6"
+            app:width_percentage="10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/g_h_left"
+
+            android:layout_marginTop="20dp"
+            app:parameter="fixed_ratio"
+            android:src="@drawable/ic_arrow_back_24"
+
+            android:layout_height="wrap_content" />
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/g_h_left"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/g_h_right"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.98"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_btn"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_top"
+            app:layout_constraintRight_toLeftOf="@+id/g_h_right"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="@dimen/_1sdp"
+            android:paddingRight="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:layout_width="wrap_content"
+            android:background="?attr/bg_1"
+
+            android:textSize="@dimen/_14ssp"
+            android:backgroundTint="?attr/tint_2"
+            android:textColor="?attr/btn_text_color_1"
+            android:layout_height="wrap_content"
+            android:text="ddd"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline_h_top"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="match_parent"
+            app:barrierDirection="bottom"
+            android:id="@+id/actionbar_barrier"
+            app:constraint_referenced_ids="save_btn,close_dimv"
+            android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline_h_btm"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95"/>
+        <androidx.cardview.widget.CardView
+
+            style="@style/BASE_CARD_1"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:cardMaxElevation="@dimen/_8sdp"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toRightOf="@+id/g_h_left"
+            app:layout_constraintRight_toLeftOf="@+id/g_h_right"
+    app:layout_constraintBottom_toTopOf="@+id/guideline_h_btm"
+            app:layout_constraintTop_toBottomOf="@+id/actionbar_barrier"
+
+            >
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                android:padding="@dimen/_14sdp"
+                style="@style/NOCOLOR_MatchParent"
+ android:layout_marginTop="@dimen/_21sdp"
+
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/head_txv"
+                    style="@style/Base_TXV_3"
+                    android:textColor="@color/white"
+
+                    android:text="text"
+
+                    />
+                <!--   android:text="@={viewmodel.heading}"-->
+                <TextView
+                    android:id="@+id/logos_txv"
+                    style="@style/Base_TXV_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLines="250"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textColor="@color/white"
+                    android:text="@={viewmodel.text}"
+
+                    />
+                <TextView
+                    android:id="@+id/class_txv"
+                    style="@style/Base_TXV_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLines="250"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textColor="@color/white"
+                    android:text="@={viewmodel.heading}"
+
+                    />
+
+
+
+
+
+
+            </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_fab"
+            style="@style/BASE_FAB_1"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_input_add"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <!--        app:rippleColor="@color/purple_500"-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

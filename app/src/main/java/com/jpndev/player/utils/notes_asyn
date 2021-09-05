@@ -1,0 +1,164 @@
+
+
+
+AsyncTask's generic types
+     The three types used by an asynchronous task are the following:
+      1)Params, the type of the parameters sent to the task upon execution.
+      2)Progress, the type of the progress units published during the background computation.
+      3)Result, the type of the result of the background computation.
+Not all types are always used by an asynchronous task. To mark a type as unused, simply use the type Void:
+
+
+Threading rules
+   There are a few threading rules that must be followed for this class to work properly:
+
+  - The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.
+  - The task instance must be created on the UI thread.
+  - execute(Params...) must be invoked on the UI thread.
+  - Do not call onPreExecute(), onPostExecute(Result), doInBackground(Params...), onProgressUpdate(Progress...) manually.
+  - The task can be executed only once (an exception will be thrown if a second execution is attempted.)
+
+
+   When first introduced, AsyncTasks were executed serially on a single background thread.
+   Starting with DONUT, this was changed to a pool of threads allowing multiple tasks to operate in parallel
+   Starting with HONEYCOMB, tasks are executed on a single thread
+
+execute -sequnece/serial
+
+asynntask.executeOnExecutor -
+    AsyncTask.THREAD_POOL_EXECUTOR - parralel
+    AsyncTask.SERIAL_EXECUTOR      -sequnece/serial
+
+test Case 1
+
+DownloadWebPageTask task = new DownloadWebPageTask();
+               String[] urls=new String[]{"http://www.vogella.com/index.html","https://developer.android.com/reference/android/os/AsyncTask.html"};
+               for(int i=0;i<urls.length;i++)
+               {
+                   task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,new String[] { urls[i]});
+                 //  task.execute(new String[] { urls[i]});
+               }
+
+output
+*crash
+*Caused by: java.lang.IllegalStateException: Cannot execute task: the task is already running.
+*InvocationTargetException
+Note  ; android.os.AsyncTask.executeOnExecutor even not work this case
+
+
+test Case 2
+
+  String[] urls=new String[]{"http://www.vogella.com/index.html","https://developer.android.com/reference/android/os/AsyncTask.html"};
+               for(int i=0;i<urls.length;i++)
+               {
+                   DownloadWebPageTask task = new DownloadWebPageTask();
+                  // task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,new String[] { urls[i]});
+                   task.execute(new String[] { urls[i]});
+               }
+  output
+  No Crash it will work fine.
+
+
+
+Test Case 3
+
+  In doInBackground - added toast
+
+   output
+   *crash.
+   *java.lang.RuntimeException: Can't toast on a thread that has not called Looper.prepare()
+
+   Note : debug and text will work in doInBackground.
+
+
+Test case 4
+
+    In doInBackground - called PostExecute
+
+    output
+      *crash.
+      *android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
+
+Test Case 5
+
+   OnPostExecute called onPreExecute and vice versa
+
+   Output
+     * no crash
+
+   Note :  onPreExecute(), onPostExecute(Result), doInBackground(Params...), onProgressUpdate(Progress...) manually we can call. but its not good.
+
+
+Test Case 6
+
+    while running asyntask , call another activty (without finish) , then backpress
+
+    Output
+     * no crash
+     * in backgroung it works fine .
+     * return to activty output seen
+
+ Test Case 6
+
+     while running asyntask , call another activty (with finish) .
+
+     expected : crash in Postexecute
+     Output:
+        *No crash
+
+ Test Case 7
+
+     while running asyntask , change the orientation.
+
+     expected : crash in Postexecute
+     Output:
+        *No crash
+        *but views are restored/recreated.
+        *asyntask stopped/canceled/
+
+
+ Test Case 7
+
+     while running asyntask , change the orientation.
+     added onSaveInstanceState ,onRestoreInstanceState
+     and edittext
+
+     expected : crash in Postexecute
+     Output:
+        *No crash
+        *but views are restored/recreated.
+        * editext entered value is there.
+        *asyntask stopped/canceled/
+
+ Test Case 7
+
+     while running asyntask , change the orientation.
+     added  android:configChanges="orientation|keyboardHidden|screenSize" on manifest actvty
+     and edittext
+     1)call another activty (without finish) , then backpress
+     2)call another activty (with finish) .
+
+     expected : crash in Postexecute
+     Output:
+        *No crash
+        * editext entered value is there.
+        *interesting asyntask works fine , even acivty finished case also no crash
+
+Test case 8
+
+        -ProgressDialog
+        -oreinatation change
+
+     output
+        *crash
+        *but views are restored/recreated.
+        *java.lang.IllegalArgumentException: View=DecorView@10e87db[Loading] not attached to window manager
+
+   Note : xml views will no crash, but dialges will crash
+   wroking : asyntask not stopped .it works ,in postexecute it update past activity views, it was not visible now.
+
+
+AsynTask oreinatation solutions
+  1)Asyantask in Fragment  . HeadlessFragment
+  2)lock orientation while running aysntask
+  3)prevent activity restart - rare to use.
