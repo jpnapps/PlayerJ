@@ -29,6 +29,12 @@
         android:label="@string/title_videos"
         tools:layout="@layout/fragment_vfolder"
  />
+    <fragment
+        android:id="@+id/navigation_folder_audios"
+        android:name="com.jpndev.player.presentation.ui.audio.AFolderFragment"
+        android:label="@string/title_folder_audios"
+        tools:layout="@layout/fragment_vfolder"
+        />
  <!--   <fragment
         android:id="@+id/navigation_more"
         android:name="com.jpndev.player.presentation.ui.more.MoreFragment"

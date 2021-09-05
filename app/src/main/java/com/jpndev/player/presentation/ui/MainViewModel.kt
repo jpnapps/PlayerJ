@@ -36,10 +36,8 @@ class MainViewModel (
 
 ) : AndroidViewModel(app)
 {
-    // Creamos un arraylist de VideosFiles para luego pasarlo al Fragmento de Videos.
     private var videosFiles = ArrayList<VideosFiles>()
 
-    // Creamos un arraylist de lista de VFolder para luego pasarlo al Fragmento de VFolder.
     private var listaVFolder = ArrayList<String>()
 
     val mld_Progress: MutableLiveData<Resource<VideosFiles>> = MutableLiveData()
@@ -89,6 +87,7 @@ class MainViewModel (
 
     }
     fun refreshLocalVideos(context: Context=app) {
+        refreshLocalAudios()
         val tempVideosFiles = ArrayList<VideosFiles>()
         val uriExternal: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(
@@ -144,6 +143,66 @@ class MainViewModel (
         mld_videoFolders.value=listaVFolder
         mld_videofiles.value=tempVideosFiles
     }
+
+   // private var audioFiles = ArrayList<VideosFiles>()
+
+    private var listAFolder = ArrayList<String>()
+
+   // val mld_Progress: MutableLiveData<Resource<VideosFiles>> = MutableLiveData()
+
+    val mld_audiofiles: MutableLiveData<ArrayList<VideosFiles>> = MutableLiveData()
+    val mld_audioFolders: MutableLiveData<ArrayList<String>> = MutableLiveData()
+
+
+
+    fun refreshLocalAudios(context: Context=app) {
+        val tempFiles = ArrayList<VideosFiles>()
+        val uriExternal: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        val projection = arrayOf(
+                MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.DATA,
+                MediaStore.Video.Media.TITLE,
+                MediaStore.Video.Media.SIZE,
+                MediaStore.Video.Media.DATE_ADDED,
+                MediaStore.Video.Media.DURATION,
+                MediaStore.Video.Media.DISPLAY_NAME
+        )
+
+        val cursor = context.contentResolver.query(uriExternal, projection, null, null, null, null)
+        if(cursor != null) {
+            while (cursor.moveToNext()){
+                val id = cursor.getString(0)
+                val path = cursor.getString(1)
+                val titulo = cursor.getString(2)
+                val tamano = cursor.getString(3)
+                val fechaAnadido = cursor.getString(4)
+                val duracion = cursor.getString(5)
+                val nombreVideo = cursor.getString(6)
+                // Convertimos la duración a String (Que se pueda entender).
+                val stringDuracion:String = String.format("%2d:%2d", TimeUnit.MILLISECONDS.toMinutes(duracion.toLong()),
+                        TimeUnit.MILLISECONDS.toSeconds(duracion.toLong()) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(duracion.toLong())))
+             //   audioFiles.add(VideosFiles(id, path, titulo, nombreVideo, tamano, fechaAnadido, stringDuracion))
+                Log.e("Duracion", duracion)
+                Log.e("Path", path )
+                val primerIndex = path.lastIndexOf("/")
+                val subString = path.substring(0, primerIndex)
+                Log.e("Primer Index", subString)
+                val index = subString.lastIndexOf("/")
+                val nombreVFolder = subString.substring(index + 1, primerIndex)
+                Log.e("Nombre carpeta", nombreVFolder)
+                if(!listAFolder.contains(nombreVFolder))
+                    listAFolder.add(nombreVFolder)
+
+                tempFiles.add(VideosFiles(id, path, titulo, nombreVideo, tamano, fechaAnadido, stringDuracion))
+            }
+            // Cerramos el cursos
+            cursor.close()
+        }
+        mld_audioFolders.value=listAFolder
+        mld_audiofiles.value=tempFiles
+    }
+
 
 
     val top_QA_list: MutableLiveData<Resource<APIResponse>> = MutableLiveData()

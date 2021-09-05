@@ -7,6 +7,9 @@
     <string name="title_videos">All Vidoes</string>
     <string name="title_folder_videos">Video Folders</string>
 
+    <string name="title_audios">All Audios</string>
+    <string name="title_folder_audios">Audio Folders</string>
+
 
     <string name="title_more">More</string>
 
