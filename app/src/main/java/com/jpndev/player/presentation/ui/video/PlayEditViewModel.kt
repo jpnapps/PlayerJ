@@ -433,6 +433,9 @@ class PlayEditViewModel (
     }
 
     fun backFn() {
+        val k=0;
+
+        //dsd
         var retunFlag:Boolean=true
         viewModelScope.launch {
            val list= usecase.executeGetPJUrlList()
