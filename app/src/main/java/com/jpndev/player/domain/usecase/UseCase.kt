@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.jpndev.player.data.model.APIResponse
 import com.jpndev.player.data.model.PItem
+import com.jpndev.player.data.model.PJUrl
 import com.jpndev.player.data.model.PListResponse
 import com.jpndev.player.data.repository.dataSourceImpl.LogSourceImpl
 import com.jpndev.player.data.util.Resource
@@ -31,4 +32,17 @@ class UseCase (private val repository: AppRepository, private val appContext: Co
     /*suspend fun execute():Flow<List<Article>>{
         return newsRepository.getSavedNews()
     }*/
+
+    suspend fun executedeletePJUrl(item: PJUrl)=repository.deletePJUrl(item)
+    suspend fun executeSavePJUrl(item: PJUrl): Long=repository.savePJUrl(item)
+    suspend fun executeDeletePJUrl(item: PJUrl): Int=repository.updatePJUrl(item)
+
+    fun executeGetPJUrl(): Flow<List<PJUrl>> {
+        return repository.getPJUrls()
+    }
+
+    suspend fun executeGetPJUrlList(): List<PJUrl> {
+        return repository.getPJUrlList()
+    }
+
 }

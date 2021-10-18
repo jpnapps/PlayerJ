@@ -2,14 +2,11 @@ package com.jpndev.player.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.jpndev.player.data.model.Article
-import com.jpndev.player.data.model.PItem
-
-import com.jpndev.player.data.model.QA
+import com.jpndev.player.data.model.*
 
 
-@Database(entities = [QA::class,Article::class,PItem::class],
-version = 2,
+@Database(entities = [QA::class,Article::class,PItem::class, PJUrl::class],
+version = 3,
 exportSchema = false
 )
 //@TypeConverters(Converters::class)

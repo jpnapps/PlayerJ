@@ -4,6 +4,7 @@ package com.jpndev.player.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.jpndev.player.presentation.ui.HOME_WEBURL
 import java.io.Serializable
 
 @Entity(
@@ -40,3 +41,18 @@ data class PItem   (
     var icon: String?
 */
 ):Serializable
+
+
+@Entity(
+    tableName = "url_table"
+)
+data class PJUrl   (
+    @PrimaryKey(autoGenerate = true)
+    val id:Int?=null,
+
+    @SerializedName("url")
+    var url: String= HOME_WEBURL,
+    @SerializedName("isPopBack")
+    var isPopBack: Boolean= false,
+
+    ):Serializable

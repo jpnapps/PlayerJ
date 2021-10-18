@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
+const val IS_FIRST_TIME="isfirsttime"
 class PrefUtils {
 
     companion object {
@@ -40,6 +41,16 @@ class PrefUtils {
     constructor(context: Context, name: String, mode: Int) {
         preferences = context.getSharedPreferences(name, mode)
         editor = preferences.edit()
+    }
+
+
+    fun isFirstRun(): Boolean {
+        return if (preferences.getBoolean(IS_FIRST_TIME, true)) {
+            save(IS_FIRST_TIME, false)
+            true
+        } else {
+            false
+        }
     }
 
     fun save(key: String, value: Boolean) {

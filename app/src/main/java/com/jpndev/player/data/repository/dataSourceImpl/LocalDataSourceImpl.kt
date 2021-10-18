@@ -4,6 +4,7 @@ import com.jpndev.player.data.db.ArticleDAO
 import com.jpndev.player.data.db.DAO
 import com.jpndev.player.data.model.Article
 import com.jpndev.player.data.model.PItem
+import com.jpndev.player.data.model.PJUrl
 import com.jpndev.player.data.repository.dataSource.LocalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,6 +56,32 @@ class LocalDataSourceImpl(
     override suspend fun clearAllPItems() {
         CoroutineScope(Dispatchers.IO).launch {
             pitemDAO.deleteAllPItem()
+        }
+    }
+
+    override suspend fun savePJUrltoDb(item: PJUrl): Long {
+        return  pitemDAO.insertPJUrl(item)
+    }
+
+    override fun getPJUrlsFromDB(): Flow<List<PJUrl>> {
+        return pitemDAO.getPJUrls()
+    }
+
+    override suspend fun getPJUrlListFromDB(): List<PJUrl> {
+        return pitemDAO.getPJUrlList()
+    }
+
+    override suspend fun updatePJUrl(pitem: PJUrl): Int {
+        return pitemDAO.updatePJUrl(pitem)
+    }
+
+    override suspend fun deletePJUrl(item: PJUrl) {
+        pitemDAO.deletePJUrl(item)
+    }
+
+    override suspend fun clearAllPJUrls() {
+        CoroutineScope(Dispatchers.IO).launch {
+            pitemDAO.deleteAllPJUrl()
         }
     }
 

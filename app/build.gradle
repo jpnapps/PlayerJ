@@ -30,10 +30,10 @@ android {
     }*/
     signingConfigs {
         debug {
-            storeFile file(project.property("MyApp.signing"))
+           /* storeFile file(project.property("MyApp.signing"))
             storePassword project.property("MyApp.signing.password")
             keyAlias project.property("MyApp.signing.alias")
-            keyPassword project.property("MyApp.signing.alias.password")
+            keyPassword project.property("MyApp.signing.alias.password")*/
         }
         release {
             storeFile file(project.property("MyApp.signing"))
@@ -47,7 +47,7 @@ android {
 
         release {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+           signingConfig signingConfigs.release
             minifyEnabled false
             debuggable false
         }

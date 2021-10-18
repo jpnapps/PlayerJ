@@ -6,7 +6,7 @@ import com.jpndev.player.presentation.ui.SplashVMFactory
 import com.jpndev.player.presentation.ui.manage_log.ViewLogosViewModelFactory
 import com.jpndev.player.presentation.ui.topqa.QAViewModelFactory
 import com.jpndev.player.ui.manage_log.MainVMFactory
-
+import com.jpndev.player.ui.manage_log.PlayEditVMFactory
 
 
 import dagger.Module
@@ -63,6 +63,19 @@ class FactoryModule {
         useCase: UseCase
     ): SplashVMFactory {
         return SplashVMFactory(
+            application,
+            useCase
+
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun providePlayEditVMFactory(
+        application: Application,
+        useCase: UseCase
+    ): PlayEditVMFactory {
+        return PlayEditVMFactory(
             application,
             useCase
 

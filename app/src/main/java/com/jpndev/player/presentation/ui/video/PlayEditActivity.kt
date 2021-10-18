@@ -5,10 +5,10 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.Window
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MediaSource
@@ -19,7 +19,15 @@ import com.google.android.exoplayer2.util.Util
 
 import com.jpndev.player.R
 import com.jpndev.player.data.repository.dataSourceImpl.LogSourceImpl
+import com.jpndev.player.databinding.ActivityMainBinding
+import com.jpndev.player.databinding.ActivityPlayEditBinding
+import com.jpndev.player.presentation.ui.HOME_WEBURL
 import com.jpndev.player.presentation.ui.IS_WEBURL
+import com.jpndev.player.presentation.ui.MainViewModel
+import com.jpndev.player.presentation.ui.topqa.QAAdapter
+import com.jpndev.player.presentation.ui.topqa.TopQAViewModel
+import com.jpndev.player.ui.manage_log.MainVMFactory
+import com.jpndev.player.ui.manage_log.PlayEditVMFactory
 import com.jpndev.player.utils.ClassA
 import com.jpndev.player.utils.ClassC
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,51 +35,61 @@ import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PlayActivity : AppCompatActivity() {
+class PlayEditActivity : AppCompatActivity() {
+
+
     @Inject
     lateinit var logSourceImpl: LogSourceImpl
-    lateinit var simpleExoPlayer:SimpleExoPlayer
+
+
+
+    @Inject
+    lateinit var factory: PlayEditVMFactory
+    lateinit var viewModel: PlayEditViewModel
+    @Inject
+    lateinit var qa_adpater: QAAdapter
+    private lateinit var binding: ActivityPlayEditBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Llamamos el metodo fullScreen
         setFullScreen()
-
-        setContentView(R.layout.activity_play)
-        // Ocutaltamos el ActionBar.
+        binding = ActivityPlayEditBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        viewModel= ViewModelProvider(this,factory).get(PlayEditViewModel::class.java)
         supportActionBar?.hide()
-       // CastButtonFactory
-        // Creamos el PlayerView
-        val playerView: PlayerView = findViewById(R.id.exoplayer_video)
-        // Obtenemos el path del intent
+
         val path = intent.getStringExtra("path")
         val isWebpath = intent.getBooleanExtra(IS_WEBURL,false)
-        // Si el path no es nulo, crearemos el productor de ExoPlayer.
-        logSourceImpl.addLog("PA path = "+path+" isWebpath = "+isWebpath)
-        if(path != null) {
-            //val uri = Uri.parse(path)
-            val uri=if(isWebpath) Uri.parse(path) else Uri.fromFile( File(path))
-            logSourceImpl.addLog("PA uri = "+uri)
+        logSourceImpl.addLog("PEA path = "+path+" isWebpath = "+isWebpath)
+        binding.lifecycleOwner = this
+        binding.viewmodel = viewModel
+        viewModel.activity=this
+        viewModel.initExoPlayer(binding)
+        viewModel.setVideoPath2(HOME_WEBURL,true)
+
+        setEditLisnter()
 
 
-             simpleExoPlayer = SimpleExoPlayer.Builder(this).setSeekForwardIncrementMs(6000)
-                .setSeekBackIncrementMs(6000)
-                .build()
-            val factory = DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, getString(R.string.app_name)))
-            logSourceImpl.addLog("PA app name = "+getString(R.string.app_name))
-            val mediaSource: MediaSource = ProgressiveMediaSource.Factory(factory).createMediaSource(
-                MediaItem.fromUri(uri))
-            playerView.player = simpleExoPlayer
-            playerView.keepScreenOn = true
+    }
 
-            simpleExoPlayer.prepare(mediaSource)
 
-          //  simpleExoPlayer.addMediaSource(mediaSource)
-            simpleExoPlayer.playWhenReady = true
+
+
+
+    private fun setEditLisnter() {
+        binding.urlAtv.setOnEditorActionListener { v: TextView?, actionId: Int, event: KeyEvent? ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                val temp_Url =   binding.urlAtv.text.toString()
+                viewModel.setVideoPath2(temp_Url,true)
+                viewModel.saveVideoPath(temp_Url)
+
+               // logSourceImpl.addLog("PEA setEditLisnter   temp_Url "+temp_Url)
+                return@setOnEditorActionListener true
+            }
+            false
         }
     }
 
-    // Metodo para crear el reproductor en FullScreen (Si se gira la pantalla).
     private fun setFullScreen() {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -84,8 +102,6 @@ class PlayActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-       /* window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)*/
     }
     fun enableFullScreen(isEnabled: Boolean) {
         if (isEnabled) {
@@ -97,6 +113,11 @@ class PlayActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        simpleExoPlayer?.release()
+        viewModel.simpleExoPlayer?.release()
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        viewModel.backFn()
     }
 }

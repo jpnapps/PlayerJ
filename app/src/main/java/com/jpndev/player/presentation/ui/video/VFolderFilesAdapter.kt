@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jpndev.player.R
+import com.jpndev.player.presentation.ui.IS_WEBURL
 import com.jpndev.player.presentation.ui.VideosFiles
 import java.io.File
 
@@ -29,7 +30,12 @@ class VistaVFolderAdapter(private val context: Context, private val carpetasVide
         holder.itemView.setOnClickListener {
            val intent = Intent(context, PlayActivity::class.java)
            // val intent = Intent(context, CastPlayActivity::class.java)
-            intent.putExtra("path", carpetasVideosFiles[position].path)
+
+         //2208
+          //  intent.putExtra("path", carpetasVideosFiles[position].path)
+
+            intent.putExtra("path", "http://live12.akt.hotstar-cdn.net/hls/live/2003")
+            intent.putExtra(IS_WEBURL, true)
             context.startActivity(intent)
         }
     }

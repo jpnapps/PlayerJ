@@ -24,9 +24,9 @@
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_folder_audios" />
 
-<!--    <item
+    <item
         android:id="@+id/navigation_more"
         android:icon="@drawable/ic_more_horiz_24"
-        android:title="@string/title_more" />-->
+        android:title="@string/title_more" />
 
 </menu>

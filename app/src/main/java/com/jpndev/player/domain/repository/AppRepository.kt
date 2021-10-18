@@ -1,9 +1,6 @@
 package com.jpndev.player.domain.repository
 
-import com.jpndev.player.data.model.APIResponse
-import com.jpndev.player.data.model.MUpdateData
-import com.jpndev.player.data.model.PItem
-import com.jpndev.player.data.model.PListResponse
+import com.jpndev.player.data.model.*
 import com.jpndev.player.data.util.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +15,11 @@ interface AppRepository {
     fun getPItems(): Flow<List<PItem>>
 
     suspend fun getUpdateData( ): Resource<MUpdateData>
+
+
+    suspend fun savePJUrl(item: PJUrl): Long
+    suspend fun updatePJUrl(item: PJUrl): Int
+    suspend fun deletePJUrl(item: PJUrl)
+    fun getPJUrls(): Flow<List<PJUrl>>
+    suspend fun getPJUrlList(): List<PJUrl>
 }

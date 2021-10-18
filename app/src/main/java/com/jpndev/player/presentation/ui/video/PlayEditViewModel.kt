@@ -1,4 +1,4 @@
-package com.jpndev.player.presentation.ui
+package com.jpndev.player.presentation.ui.video
 
 import android.app.Activity
 import android.app.Application
@@ -11,15 +11,26 @@ import android.os.Build
 import android.provider.MediaStore
 import android.text.Html
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.*
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 import com.jpndev.player.MainActivity
 import com.jpndev.player.R
 import com.jpndev.player.data.model.APIResponse
 import com.jpndev.player.data.model.MUpdateData
 import com.jpndev.player.data.model.PJUrl
 import com.jpndev.player.data.util.Resource
+import com.jpndev.player.databinding.ActivityPlayEditBinding
 import com.jpndev.player.domain.usecase.UseCase
+import com.jpndev.player.presentation.ui.HOME_WEBURL
+import com.jpndev.player.presentation.ui.IS_WEBURL
+import com.jpndev.player.presentation.ui.VideosFiles
 import com.jpndev.player.presentation.ui.video.CastPlayActivity
 import com.jpndev.player.presentation.ui.video.PlayActivity
 import com.jpndev.player.presentation.ui.video.VFolderActivity
@@ -27,13 +38,13 @@ import com.jpndev.player.presentation.ui.video.VideoPlayerActivity
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-const val IS_WEBURL="weburl"
-const val HOME_WEBURL="https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4"
-class MainViewModel (
+
+class PlayEditViewModel (
     private val app: Application,
     public val usecase: UseCase
 
@@ -47,22 +58,7 @@ class MainViewModel (
 
     val mld_videofiles: MutableLiveData<ArrayList<VideosFiles>> = MutableLiveData()
     val mld_videoFolders: MutableLiveData<ArrayList<String>> = MutableLiveData()
-
-
-    init {
-        viewModelScope.launch {
-            if (usecase.prefUtils.isFirstRun()) {
-                val newRowId = usecase.executeSavePJUrl(PJUrl(url = HOME_WEBURL))
-                if (newRowId > -1) {
-                  usecase.logsource.addLog("SavePJUrl Added Successfully $newRowId")
-                } else {
-                    usecase.logsource.addLog("SavePJUrl Error Occurred")
-                }
-            }
-        }
-    }
     lateinit var activity :Activity
-
 
     fun setActiivty(temp: Activity) =viewModelScope.launch {
         activity=temp
@@ -75,11 +71,101 @@ class MainViewModel (
         activity?.startActivity(intent)
     }
 
+
+    lateinit var simpleExoPlayer:SimpleExoPlayer
+    lateinit var binding:ActivityPlayEditBinding
+     fun initExoPlayer(tempbinding: ActivityPlayEditBinding) {
+        simpleExoPlayer = SimpleExoPlayer.Builder(activity).setSeekForwardIncrementMs(6000)
+            .setSeekBackIncrementMs(6000)
+            .build()
+         binding=tempbinding
+         binding.playerView.player = simpleExoPlayer
+         binding.playerView.keepScreenOn = true
+    }
+     public fun setVideoPath2(path :String?= HOME_WEBURL, isWebpath:Boolean=true) {
+        if(path != null) {
+            val uri=if(isWebpath) Uri.parse(path) else Uri.fromFile( File(path))
+            usecase.logsource.addLog("PEVM setVideoPath uri = "+uri)
+            val factory = DefaultDataSourceFactory(activity,
+                Util.getUserAgent(activity, activity.getString(R.string.app_name)))
+            val mediaSource: MediaSource = ProgressiveMediaSource.Factory(factory).createMediaSource(
+                MediaItem.fromUri(uri))
+
+            simpleExoPlayer.prepare(mediaSource)
+            simpleExoPlayer.playWhenReady = true
+        }
+    }
+    public fun setHomeVideo() {
+
+            val  isWebpath=true
+            val  path= HOME_WEBURL
+            val uri=if(isWebpath) Uri.parse(path) else Uri.fromFile( File(path))
+            usecase.logsource.addLog("PEVM setHomeVideo uri = "+uri)
+            val factory = DefaultDataSourceFactory(activity,
+                Util.getUserAgent(activity, activity.getString(R.string.app_name)))
+            val mediaSource: MediaSource = ProgressiveMediaSource.Factory(factory).createMediaSource(
+                MediaItem.fromUri(uri))
+
+            simpleExoPlayer.prepare(mediaSource)
+            simpleExoPlayer.playWhenReady = true
+
+    }
+    fun clearVideoPath() {
+        binding?.let{
+            binding.urlAtv.setText(HOME_WEBURL)
+
+        }
+    }
+    fun saveVideoPath(path: String) {
+        viewModelScope.launch {
+            val newRowId = usecase.executeSavePJUrl(PJUrl(url = path))
+            usecase.logsource.addLog("SavePJUrl custom= $path")
+            if (newRowId > -1) {
+                usecase.logsource.addLog("SavePJUrl Added Successfully $newRowId")
+            } else {
+                usecase.logsource.addLog("SavePJUrl Error Occurred")
+            }
+        }
+    }
+    var count=0;
+    fun refreshLayout() {
+        binding?.let{
+            count++
+            if(count%2==0)showBar() else hideBar()
+            if(count==1000)
+                count=0
+
+        }
+    }
+
+    fun showBar() {
+        binding?.let{
+            it.barCview.visibility=View.VISIBLE
+
+        }
+    }
+
+    fun hideBar() {
+        binding?.let{
+            it.barCview.visibility=View.GONE
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     fun showPlayActivity(temp: Activity?=activity,path:String) =viewModelScope.launch {
       val intent = Intent(temp, PlayActivity::class.java)
-      //  val intent = Intent(temp, CastPlayActivity::class.java)
-        //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        //2208
+
        intent.putExtra("path", path)
 
       //  intent.putExtra("path", "https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4")
@@ -345,4 +431,33 @@ class MainViewModel (
 
         }
     }
+
+    fun backFn() {
+        var retunFlag:Boolean=true
+        viewModelScope.launch {
+           val list= usecase.executeGetPJUrlList()
+            var i=list.size-1
+            usecase.logsource.addLog("backFn list size  $i")
+            while (i>0){
+                if(list.get(i).isPopBack)
+                {
+
+                    i--;
+                    usecase.logsource.addLog("backFn isPopBack  minused $i")
+                }
+                else
+                {
+                    setVideoPath2(path =list.get(i).url )
+                    usecase.logsource.addLog("backFn not PopBack videoset $i")
+                    retunFlag=false
+                    break
+                }
+            }
+
+
+        }
+        usecase.logsource.addLog("backFn retunFlag $retunFlag")
+    }
+
+
 }

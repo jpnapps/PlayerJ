@@ -307,6 +307,7 @@
     <color name="md_teal_A400">#1DE9B6</color>
     <color name="md_teal_A700">#00BFA5</color>
     <color name="transparent">#00ffffff</color>
+    <color name="transparent2">#10ffffff</color>
     <!-- green -->
     <color name="md_green_50">#E8F5E9</color>
     <color name="md_green_100">#C8E6C9</color>

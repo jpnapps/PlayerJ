@@ -1,9 +1,6 @@
 package com.jpndev.player.data.repository
 
-import com.jpndev.player.data.model.APIResponse
-import com.jpndev.player.data.model.MUpdateData
-import com.jpndev.player.data.model.PItem
-import com.jpndev.player.data.model.PListResponse
+import com.jpndev.player.data.model.*
 import com.jpndev.player.data.repository.dataSource.LocalDataSource
 import com.jpndev.player.data.repository.dataSource.RemoteDataSource
 import com.jpndev.player.data.util.Resource
@@ -44,6 +41,26 @@ class AppRepositoryImpl(
 
     override suspend fun getUpdateData(): Resource<MUpdateData> {
         return responseToUpdateResource(remoteDataSource.getUpdateData())
+    }
+
+    override suspend fun savePJUrl(item: PJUrl): Long {
+        return  localDataSource.savePJUrltoDb(item)
+    }
+
+    override suspend fun updatePJUrl(item: PJUrl): Int {
+        return  localDataSource.updatePJUrl(item)
+    }
+
+    override suspend fun deletePJUrl(item: PJUrl) {
+        localDataSource.deletePJUrl(item)
+    }
+
+    override fun getPJUrls(): Flow<List<PJUrl>> {
+        return localDataSource.getPJUrlsFromDB()
+    }
+
+    override suspend fun getPJUrlList(): List<PJUrl> {
+        return localDataSource.getPJUrlListFromDB()
     }
 
 

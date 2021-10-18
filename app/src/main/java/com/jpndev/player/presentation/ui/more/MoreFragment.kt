@@ -15,6 +15,8 @@ import com.jpndev.player.databinding.FragmentMoreBinding
 import com.jpndev.player.R
 import com.jpndev.player.presentation.ui.manage_log.ViewLogosActivity
 import com.jpndev.player.presentation.ui.video.CastPlayActivity
+import com.jpndev.player.presentation.ui.video.PlayActivity
+import com.jpndev.player.presentation.ui.video.PlayEditActivity
 import com.jpndev.player.ui.home.HomeViewModel
 
 
@@ -68,7 +70,7 @@ class MoreFragment  : Fragment() {
 
         }
         binding.pwdManagerCard.setOnClickListener {
-            val intent = Intent(activity, CastPlayActivity::class.java)
+            val intent = Intent(activity, PlayEditActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             activity?.startActivity(intent)
 
