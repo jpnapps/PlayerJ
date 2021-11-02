@@ -302,7 +302,7 @@ class MainViewModel (
             }
 
         } catch (e: Exception) {
-            app_update_mld.postValue(Resource.Error(e.message.toString()))
+            app_update_mld.postValue(Resource.Error("refreshAppUpdate "+e.message.toString()))
         }
 
     }

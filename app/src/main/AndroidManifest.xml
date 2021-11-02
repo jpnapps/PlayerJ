@@ -18,8 +18,11 @@
         android:theme="@style/Theme.App.System"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.about.VersionActivity"
+            android:exported="true" />
+        <activity
             android:name=".presentation.ui.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,9 +36,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".presentation.ui.manage_log.ViewLogosActivity"
             android:exported="true"

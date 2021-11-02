@@ -13,6 +13,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.jpndev.player.BuildConfig
 import com.jpndev.player.databinding.FragmentMoreBinding
 import com.jpndev.player.R
+import com.jpndev.player.presentation.ui.about.VersionActivity
 import com.jpndev.player.presentation.ui.manage_log.ViewLogosActivity
 import com.jpndev.player.presentation.ui.video.CastPlayActivity
 import com.jpndev.player.presentation.ui.video.PlayActivity
@@ -59,14 +60,16 @@ class MoreFragment  : Fragment() {
             binding.pwdManagerCard.visibility=View.GONE
 
             binding.liflecycleCard.visibility=View.GONE
+            binding.aboutUsCard.visibility=View.GONE
 
         }
         else{
-            binding.viewLogos.visibility=View.VISIBLE
-            binding.securityCard.visibility=View.VISIBLE
+   /*         binding.viewLogos.visibility=View.VISIBLE
             binding.pwdManagerCard.visibility=View.VISIBLE
+            binding.liflecycleCard.visibility=View.VISIBLE*/
 
-            binding.liflecycleCard.visibility=View.VISIBLE
+            binding.securityCard.visibility=View.VISIBLE
+            binding.aboutUsCard.visibility=View.VISIBLE
 
         }
         binding.pwdManagerCard.setOnClickListener {
@@ -87,15 +90,31 @@ class MoreFragment  : Fragment() {
             activity?.startActivity(intent)
 
         }
+        binding.shareCard.setOnClickListener {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
+            )
+            sendIntent.type = "text/plain"
+            startActivity(sendIntent)
+        }
         binding.aboutUsCard.setOnClickListener {
             val intent = Intent(activity, ViewLogosActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             activity?.startActivity(intent)
 
         }
+        binding.appinfoCard.setOnClickListener {
+            val intent = Intent(activity,  VersionActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            activity?.startActivity(intent)
+
+        }
         binding.rateCard.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.beeone.techbank&hl=en")
+            intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.jpndev.player&hl=en")
             activity?.startActivity(intent)
 
         }

@@ -47,6 +47,11 @@ class SplashActivity : AppCompatActivity() {
                     hideProgressBar()
                     response.data?.let { viewModel.checkUpdate(it) }
                 }
+                is Resource.ServerError->{
+                    hideProgressBar()
+                    viewModel.showMainAcivity(this@SplashActivity)
+                  //  response.data?.let { viewModel.checkUpdate(it) }
+                }
                 is Resource.Error->{
                     hideProgressBar()
                     response.message?.let{

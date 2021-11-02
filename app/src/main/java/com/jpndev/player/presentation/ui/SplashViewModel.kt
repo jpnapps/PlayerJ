@@ -113,7 +113,7 @@ class SplashViewModel (
             if (isNetworkAvailable(app)) {
 
                 val apiResult = usecase.executeAppUpdate()
-                apiResult.data?.let {
+                 apiResult.data?.let {
                    // checkUpdate(it)
                     app_update_mld.postValue(Resource.Success(it))
                 }
@@ -124,7 +124,7 @@ class SplashViewModel (
             }
 
         } catch (e: Exception) {
-            app_update_mld.postValue(Resource.Error(e.message.toString()))
+            app_update_mld.postValue(Resource.ServerError("refreshAppUpdate "+e.message.toString()))
         }
 
     }

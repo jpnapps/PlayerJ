@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+
+    android:paddingBottom="0dp"
+    android:paddingTop="0dp"
+    >
+    <!--   android:descendantFocusability="beforeDescendants"
+                 android:focusableInTouchMode="true"-->
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_h_left"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04"/>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_lefticon_right"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.12"/>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_righticon_left"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.88"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_h_right"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_h_center"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_v_30"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30"/>
+
+
+
+<!--    <TextView
+        android:id="@+id/appname_ctxv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_v_30"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_lefticon_right"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_righticon_left"
+        android:textSize="@dimen/sp26"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:textColor="@color/app_dark_bg_1"/>-->
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/appname_ctxv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_v_30"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_lefticon_right"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_righticon_left"
+        android:src="@drawable/ic_playerj_anim_2"
+        />
+    <TextView
+        android:id="@+id/version_ctxv"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/appname_ctxv"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_lefticon_right"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_righticon_left"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_13ssp"
+
+        android:textColor="@color/colorPrimarybrown2"
+        />
+
+
+    <com.jpndev.player.custom.DeviceFitImageView
+
+        android:id="@+id/appicon_dimv"
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@mipmap/ic_launcher"
+        app:height_percentage="12"
+        app:layout_constraintTop_toBottomOf="@+id/version_ctxv"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_lefticon_right"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_righticon_left"
+        android:scaleType="fitCenter"
+        app:parameter="fixed_ratio"
+        app:width_percentage="20"/>
+
+    <TextView
+        android:id="@+id/latestversion_ctxv"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+
+        app:layout_constraintTop_toBottomOf="@+id/appicon_dimv"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_lefticon_right"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_righticon_left"
+        android:layout_height="wrap_content" android:textSize="@dimen/_13ssp"
+        android:textColor="@color/ccrbBrownText"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
