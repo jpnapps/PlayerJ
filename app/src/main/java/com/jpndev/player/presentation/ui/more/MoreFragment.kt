@@ -55,12 +55,13 @@ class MoreFragment  : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if(BuildConfig.isLive)
         {
-            binding.viewLogos.visibility=View.GONE
+
             binding.securityCard.visibility=View.GONE
             binding.pwdManagerCard.visibility=View.GONE
 
             binding.liflecycleCard.visibility=View.GONE
             binding.aboutUsCard.visibility=View.GONE
+            binding.viewLogos.visibility=View.GONE
 
         }
         else{
