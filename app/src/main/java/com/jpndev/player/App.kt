@@ -2,6 +2,7 @@ package com.jpndev.player
 
 import android.app.Application
 import com.jpndev.player.data.repository.dataSourceImpl.LogSourceImpl
+import com.microsoft.appcenter.AppCenter
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.coroutineScope
 import java.lang.Exception
@@ -35,4 +36,11 @@ class App : Application(){
 
 
         }
+
+
+    override fun onCreate() {
+        super.onCreate()
+
+
+    }
 }
