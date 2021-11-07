@@ -23,7 +23,7 @@ class App : Application(){
 
                 if (obj is String) {
 
-                    logSource.addLog("\n Text  = " +obj)
+                    logSource.addLog("\n Text messge = " +obj)
 
 
                 }

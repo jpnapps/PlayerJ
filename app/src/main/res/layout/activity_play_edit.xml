@@ -36,7 +36,7 @@ app:cardBackgroundColor="@color/white"
     <RelativeLayout
 
         android:orientation="horizontal"
-android:paddingTop="@dimen/_6sdp"
+android:paddingTop="@dimen/_5sdp"
         android:background="@color/transparent"
         android:paddingBottom="@dimen/_6sdp"
         android:layout_width="match_parent"
