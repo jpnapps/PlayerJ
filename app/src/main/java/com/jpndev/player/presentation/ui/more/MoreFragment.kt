@@ -19,7 +19,7 @@ import com.jpndev.player.presentation.ui.video.CastPlayActivity
 import com.jpndev.player.presentation.ui.video.PlayActivity
 import com.jpndev.player.presentation.ui.video.PlayEditActivity
 import com.jpndev.player.ui.home.HomeViewModel
-
+import com.microsoft.appcenter.crashes.Crashes
 
 
 class MoreFragment  : Fragment() {
@@ -62,13 +62,15 @@ class MoreFragment  : Fragment() {
             binding.liflecycleCard.visibility=View.GONE
             binding.aboutUsCard.visibility=View.GONE
             binding.viewLogos.visibility=View.GONE
-
+            binding.liflecycleCard.visibility=View.VISIBLE
         }
         else{
-   /*         binding.viewLogos.visibility=View.VISIBLE
-            binding.pwdManagerCard.visibility=View.VISIBLE
-            binding.liflecycleCard.visibility=View.VISIBLE*/
+   /*
 
+           */
+            binding.viewLogos.visibility=View.VISIBLE
+            binding.liflecycleCard.visibility=View.VISIBLE
+            binding.pwdManagerCard.visibility=View.VISIBLE
             binding.securityCard.visibility=View.VISIBLE
             binding.aboutUsCard.visibility=View.VISIBLE
 
@@ -86,9 +88,11 @@ class MoreFragment  : Fragment() {
 
         }
         binding.liflecycleCard.setOnClickListener {
-            val intent = Intent(activity, ViewLogosActivity::class.java)
+            //throw Exception("Something wrong happen")
+            Crashes.generateTestCrash()
+         /*   val intent = Intent(activity, ViewLogosActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            activity?.startActivity(intent)
+            activity?.startActivity(intent)*/
 
         }
         binding.shareCard.setOnClickListener {

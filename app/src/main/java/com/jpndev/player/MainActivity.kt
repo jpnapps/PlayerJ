@@ -20,6 +20,9 @@ import com.jpndev.player.presentation.ui.topqa.QAViewModelFactory
 import com.jpndev.player.presentation.ui.topqa.TopQAViewModel
 import com.jpndev.player.presentation.ui.video.VideoAdapter
 import com.jpndev.player.ui.manage_log.MainVMFactory
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -62,6 +65,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewMainModel.activity=this@MainActivity
+        Analytics.trackEvent("My custom event");
+        AppCenter.start(
+            getApplication(), "a4132a49-998b-43a4-a60a-cc4f1004fb08",
+            Analytics::class.java, Crashes::class.java
+        )
+
+
         requestStPermission()
 
         /*    val navHostFragment=supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
