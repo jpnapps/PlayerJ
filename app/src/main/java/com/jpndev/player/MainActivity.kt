@@ -2,11 +2,8 @@ package com.jpndev.player
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +20,6 @@ import com.jpndev.player.ui.manage_log.MainVMFactory
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -66,10 +62,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewMainModel.activity=this@MainActivity
         Analytics.trackEvent("My custom event");
+
         AppCenter.start(
-            getApplication(), "a4132a49-998b-43a4-a60a-cc4f1004fb08",
+            application, "8c3a1cbc-b0ae-4969-8b1b-5e2860e3e0ed",
             Analytics::class.java, Crashes::class.java
         )
+
+      /*  AppCenter.start(
+            getApplication(), "a4132a49-998b-43a4-a60a-cc4f1004fb08",
+            Analytics::class.java, Crashes::class.java
+        )*/
 
 
         requestStPermission()
