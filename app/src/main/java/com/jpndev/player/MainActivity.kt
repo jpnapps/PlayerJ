@@ -52,12 +52,15 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var logSourceImpl: LogSourceImpl
 
+    //nov 08 com laptop
+    var test=0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel= ViewModelProvider(this,factory).get(TopQAViewModel::class.java)
         viewMainModel= ViewModelProvider(this,mainfactory).get(MainViewModel::class.java)
 
+        //nov 08 com laptop
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewMainModel.activity=this@MainActivity
