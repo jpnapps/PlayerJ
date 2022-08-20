@@ -2,10 +2,7 @@ package com.jpndev.player.domain.usecase
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.jpndev.player.data.model.APIResponse
-import com.jpndev.player.data.model.PItem
-import com.jpndev.player.data.model.PJUrl
-import com.jpndev.player.data.model.PListResponse
+import com.jpndev.player.data.model.*
 import com.jpndev.player.data.repository.dataSourceImpl.LogSourceImpl
 import com.jpndev.player.data.util.Resource
 import com.jpndev.player.domain.repository.AppRepository
@@ -28,7 +25,12 @@ class UseCase (private val repository: AppRepository, private val appContext: Co
         return repository.getPItems()
     }
 
-    suspend fun executeAppUpdate()=repository.getUpdateData()
+     suspend fun executeAppUpdate(): Resource<MUpdateData> {
+        return repository.getUpdateData()
+    }
+/*    suspend fun executeAppUpdate()=repository.getUpdateData()*/
+
+
     /*suspend fun execute():Flow<List<Article>>{
         return newsRepository.getSavedNews()
     }*/

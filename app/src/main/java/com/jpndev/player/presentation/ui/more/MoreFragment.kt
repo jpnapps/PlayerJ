@@ -22,7 +22,7 @@ import com.jpndev.player.ui.home.HomeViewModel
 import com.microsoft.appcenter.crashes.Crashes
 
 
-class MoreFragment  : Fragment() {
+class MoreFragment : Fragment() {
 
     //private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentMoreBinding? = null
@@ -38,8 +38,8 @@ class MoreFragment  : Fragment() {
     ): View? {
 
 
-      /*  homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)*/
+        /*  homeViewModel =
+              ViewModelProvider(this).get(HomeViewModel::class.java)*/
 
         _binding = FragmentMoreBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -53,27 +53,19 @@ class MoreFragment  : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(BuildConfig.isLive)
-        {
-
-            binding.securityCard.visibility=View.GONE
-            binding.pwdManagerCard.visibility=View.GONE
-
-            binding.liflecycleCard.visibility=View.GONE
-            binding.aboutUsCard.visibility=View.GONE
-            binding.viewLogos.visibility=View.GONE
-            binding.liflecycleCard.visibility=View.VISIBLE
-        }
-        else{
-   /*
-
-           */
-            binding.viewLogos.visibility=View.VISIBLE
-            binding.liflecycleCard.visibility=View.VISIBLE
-            binding.pwdManagerCard.visibility=View.VISIBLE
-            binding.securityCard.visibility=View.VISIBLE
-            binding.aboutUsCard.visibility=View.VISIBLE
-
+        if (BuildConfig.isLive) {
+            binding.securityCard.visibility = View.GONE
+            binding.pwdManagerCard.visibility = View.GONE
+            binding.liflecycleCard.visibility = View.GONE
+            binding.aboutUsCard.visibility = View.GONE
+            binding.viewLogos.visibility = View.GONE
+            binding.liflecycleCard.visibility = View.VISIBLE
+        } else {
+            binding.viewLogos.visibility = View.VISIBLE
+            binding.liflecycleCard.visibility = View.VISIBLE
+            binding.pwdManagerCard.visibility = View.VISIBLE
+            binding.securityCard.visibility = View.VISIBLE
+            binding.aboutUsCard.visibility = View.VISIBLE
         }
         binding.pwdManagerCard.setOnClickListener {
             val intent = Intent(activity, PlayEditActivity::class.java)
@@ -90,9 +82,9 @@ class MoreFragment  : Fragment() {
         binding.liflecycleCard.setOnClickListener {
             //throw Exception("Something wrong happen")
             Crashes.generateTestCrash()
-         /*   val intent = Intent(activity, ViewLogosActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            activity?.startActivity(intent)*/
+            /*   val intent = Intent(activity, ViewLogosActivity::class.java)
+               intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+               activity?.startActivity(intent)*/
 
         }
         binding.shareCard.setOnClickListener {
@@ -112,14 +104,15 @@ class MoreFragment  : Fragment() {
 
         }
         binding.appinfoCard.setOnClickListener {
-            val intent = Intent(activity,  VersionActivity::class.java)
+            val intent = Intent(activity, VersionActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             activity?.startActivity(intent)
 
         }
         binding.rateCard.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.jpndev.player&hl=en")
+            intent.data =
+                Uri.parse("https://play.google.com/store/apps/details?id=com.jpndev.player&hl=en")
             activity?.startActivity(intent)
 
         }

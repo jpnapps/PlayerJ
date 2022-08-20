@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import android.text.Html
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.*
 import com.jpndev.player.MainActivity
 import com.jpndev.player.R
@@ -165,10 +166,11 @@ class SplashViewModel (
             val alertDialogBuilder = AlertDialog.Builder(temp)
             val title:String=obj.update_title?:temp.getString(R.string.youAreNotUpdatedTitle)
             val message:String=obj.update_message?:temp.getString(R.string.youAreNotUpdatedMessage) + " " + obj.version_name + temp.getString(R.string.youAreNotUpdatedMessage1)
-            alertDialogBuilder.setTitle( Html.fromHtml(title))
+           //alertDialogBuilder.setTitle( Html.fromHtml(title))
+            alertDialogBuilder.setTitle(     HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_LEGACY))
             alertDialogBuilder.setMessage(
-                Html.fromHtml(message)
-
+                //Html.fromHtml(message)
+                        HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_LEGACY)
             )
 
             val packagename = "com.jpndev.player"

@@ -27,23 +27,20 @@ class VFolderFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //Log.d("jp","VFF onCreateView")
-        (activity as MainActivity).logSourceImpl.addLog("VFF onCreateView  ")
-        viewModel=(activity as MainActivity).viewMainModel
-        itemAdapter=(activity as MainActivity).vfolder_adapter
-        (activity as MainActivity).logSourceImpl.addLog("VFF onCreateView attached ")
-        itemAdapter.viewModel=viewModel
-        //Log.d("jp","VFF onCreateView attached ")
+        viewModel = (activity as MainActivity).viewMainModel
+        itemAdapter = (activity as MainActivity).vfolder_adapter
+        viewModel.addLog("VFF onCreateView  ")
+        itemAdapter.viewModel = viewModel
         val view = inflater.inflate(R.layout.fragment_vfolder, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.VFolderRV)
         initRcv(recyclerView)
-       /* if(listaVFolder != null && listaVFolder.size > 0 && videosFiles != null) {
-            val carpetaAdapter = VFolderAdapter(view.context, this.videosFiles, this.listaVFolder)
-            recyclerView.adapter = carpetaAdapter
-            recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        }*/
-        viewModel.mld_videoFolders.observe(viewLifecycleOwner,{
-            (activity as MainActivity).logSourceImpl.addLog("VFF observe size "+it?.size)
+        /* if(listaVFolder != null && listaVFolder.size > 0 && videosFiles != null) {
+             val carpetaAdapter = VFolderAdapter(view.context, this.videosFiles, this.listaVFolder)
+             recyclerView.adapter = carpetaAdapter
+             recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+         }*/
+        viewModel.mld_videoFolders.observe(viewLifecycleOwner, {
+            viewModel.addLog("VFF observe size " + it?.size)
             itemAdapter.differ.submitList(it)
 
         })
@@ -52,13 +49,10 @@ class VFolderFragment() : Fragment() {
         return view
     }
 
-    private fun initRcv(rcv:RecyclerView) {
-        //  pitemadapter= NewsAdapter()
+    private fun initRcv(rcv: RecyclerView) {
         rcv.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter=itemAdapter
-
-            //addOnScrollListener(this@PManageActivity.onScrollListner)
+            adapter = itemAdapter
         }
         itemAdapter.differ.submitList(viewModel.mld_videoFolders.value)
     }

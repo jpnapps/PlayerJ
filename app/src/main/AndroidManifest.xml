@@ -42,15 +42,16 @@
             android:exported="true"
             android:launchMode="singleTask" />
         <activity
-            android:name=".presentation.ui.video.VFolderActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
+            android:name=".presentation.ui.video.VFolderActivity">
+              <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".presentation.ui.video.PlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
             android:launchMode="singleTop" />
         <activity
             android:name=".presentation.ui.video.PlayEditActivity"

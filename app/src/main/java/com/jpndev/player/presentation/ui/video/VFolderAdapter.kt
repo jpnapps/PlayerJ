@@ -19,7 +19,8 @@ import com.jpndev.player.presentation.ui.video.VFolderActivity
 import com.jpndev.player.presentation.ui.video.VideoAdapter
 import java.io.File
 
-class VFolderAdapter(private val context: Context ) : RecyclerView.Adapter<VFolderAdapter.ViewHolder>() {
+class VFolderAdapter(private val context: Context) :
+    RecyclerView.Adapter<VFolderAdapter.ViewHolder>() {
 /*    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.vfolder_item, parent, false)
         return ViewHolder(view)
@@ -34,40 +35,41 @@ class VFolderAdapter(private val context: Context ) : RecyclerView.Adapter<VFold
         }
     }*/
 
-/*    override fun getItemCount(): Int {
-        return nombreVFolder.size
+    /*    override fun getItemCount(): Int {
+            return nombreVFolder.size
+        }
+        */
+    private val callback = object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem.equals(newItem)
+        }
+
     }
-    */
-private val callback =object: DiffUtil.ItemCallback<String>(){
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
 
-        return oldItem==newItem
-    }
-
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem.equals(newItem)
-    }
-
-}
-
-    val differ= AsyncListDiffer(this,callback)
+    val differ = AsyncListDiffer(this, callback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val binding = VfolderItemBinding.inflate( LayoutInflater.from(parent.context),parent,false)
+        val binding = VfolderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         //  return tvList.size
-      viewModel?.usecase?.logsource?.addLog("VFFA getItemCount "+differ.currentList.size)
+        viewModel?.usecase?.logsource?.addLog("VFFA getItemCount " + differ.currentList.size)
         return differ.currentList.size
     }
-  /*  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }*/
+
+    /*  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+          TODO("Not yet implemented")
+      }*/
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item= differ.currentList.get(position)
-      viewModel?.usecase?.logsource?.addLog("VFFA onBindViewHolder item "+item)
+        val item = differ.currentList.get(position)
+        viewModel?.usecase?.logsource?.addLog("VFFA onBindViewHolder item " + item)
         holder.bind(item)
         /*holder.itemView.setOnClickListener {
             val intent = Intent(context, PlayActivity::class.java)
@@ -75,32 +77,31 @@ private val callback =object: DiffUtil.ItemCallback<String>(){
             intent.putExtra("path", item.path)
             context.startActivity(intent)
         }*/
-        holder.itemView.setOnClickListener{
-            viewModel?.showVFolderActivity(item=item)
-      /*      val intent = Intent(viewModel?.activity, VFolderActivity::class.java)
-            intent.putExtra("carpetaNombre", item)
-            context.startActivity(intent)*/
+        holder.itemView.setOnClickListener {
+            viewModel?.showVFolderActivity(item = item)
+            /*      val intent = Intent(viewModel?.activity, VFolderActivity::class.java)
+                  intent.putExtra("carpetaNombre", item)
+                  context.startActivity(intent)*/
         }
     }
 
     var viewModel: MainViewModel? = null
 
 
-    fun setViewModels( temp: MainViewModel) {
+    fun setViewModels(temp: MainViewModel) {
 
 
-        viewModel=temp
+        viewModel = temp
     }
 
-    inner class ViewHolder(val binding: VfolderItemBinding):
-        RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: VfolderItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(text: String) {
-            binding.nombreVFolder.text=text
+            binding.nombreVFolder.text = text
 
         }
 
     }
-
 
 
     /*  class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
