@@ -1,0 +1,18 @@
+ext {
+    hlit_version = "2.35"
+    nav_version = "2.3.4"
+    lifecycle_version = "2.3.1"
+    //coroutine
+    coroutine_version = "1.4.2"
+
+    //def lifecycle_version = "2.2.0"
+
+
+    //local db
+     room_version = "2.3.0"
+
+    //Glide
+     Glide_version = "4.12.0"
+
+
+}   

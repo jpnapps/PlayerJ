@@ -1,0 +1,20 @@
+
+  1)  const  : Complietime constant
+    val  : runtime constant
+     companion object CompanionObject {
+
+            const  val  b:String="US"
+            const val FILE_EXTENSION = ".png"
+            val FILENAME: String
+                get() = "Img_" + System.currentTimeMillis() + FILE_EXTENSION
+        }
+
+2) Null safety
+    safe call operator i.e. ?.
+
+     var name: String = "MindOrks"
+    name = null //error
+
+3) safe calls(?.) and null check(!!)?
+
+4)Elvis Operator(?:)

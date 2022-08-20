@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.jpndev.player.presentation.ui.video.PlayEditViewModel" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/topRlay"
+
+    android:background="@color/black"
+ >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/barCview"
+        style="@style/BASE_CARD_1"
+app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/_8sdp"
+        app:cardMaxElevation="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_6sdp"
+        android:layout_marginRight="@dimen/_6sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+    <RelativeLayout
+
+        android:orientation="horizontal"
+android:paddingTop="@dimen/_5sdp"
+        android:background="@color/transparent"
+        android:paddingBottom="@dimen/_6sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.jpndev.utillibrary.DeviceFitImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/homeDimv"
+        android:onClick="@{() -> viewmodel.setHomeVideo()}"
+android:layout_centerVertical="true"
+        app:width_percentage="10"
+        app:height_percentage="5"
+        android:scaleType="fitCenter"
+        app:parameter="fixed_ratio"
+        />
+        <!--        android:onClick="@{()->viewmodel.setVideoPath2()}"-->
+        <AutoCompleteTextView
+            android:id="@+id/urlAtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_toLeftOf="@+id/clearDimv"
+            android:layout_toRightOf="@+id/homeDimv"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/background_address_bar"
+            android:clickable="true"
+            android:completionThreshold="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/search_or_type_web_address"
+
+            android:imeOptions="actionGo"
+            android:inputType="textUri"
+            android:paddingLeft="@dimen/_4sdp"
+            android:paddingRight="@dimen/_4sdp"
+            android:textSize="@dimen/_18ssp" />
+
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:id="@+id/clearDimv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:onClick="@{()->viewmodel.clearVideoPath()}"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="3dp"
+        android:padding="3dp"
+        android:src="@drawable/ic_close_24"
+        android:backgroundTint="@color/black"
+        android:visibility="visible" />
+
+</RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@color/black"
+        android:onClick="@{() -> viewmodel.refreshLayout()}"
+        app:controller_layout_id="@layout/custom_controller_view"
+        app:player_layout_id="@layout/exo_styled_player_view" />
+
+<!--     <com.google.android.exoplayer2.ui.PlayerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/exoplayer_video"
+        android:background="@color/black"
+
+        app:hide_on_touch="true"
+        app:resize_mode="fit"
+        app:rewind_increment="2000"
+        app:fastforward_increment="2000"
+        app:show_timeout="5000"
+        app:shutter_background_color="@color/black"
+        app:use_controller="true"
+        app:controller_layout_id="@layout/custom_controller_view"
+       app:player_layout_id="@layout/exo_styled_player_view"/>-->
+</RelativeLayout>
+</layout>

@@ -1,0 +1,19 @@
+
+
+TestCase 1:
+
+  <fragment
+        android:layout_width="match_parent"
+        class="com.jpndev.jpmusicplayer.asyntask.AsynTaskFragment"
+        android:layout_height="match_parent"/>
+
+
+Output
+  *crash
+  * Caused by: java.lang.IllegalArgumentException: Binary XML file line #0: Must specify unique android:id, android:tag, o
+  *fragment need unique id
+
+
+  java.lang.ClassCastException :     support.v4.app, and app -
+
+  java.lang.IllegalStateException:  -  onClick in xml. (activty is root)

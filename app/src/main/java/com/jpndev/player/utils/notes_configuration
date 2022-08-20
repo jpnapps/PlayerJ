@@ -1,0 +1,55 @@
+
+ Test Case 1
+       android:configChanges="orientation|keyboardHidden|screenSize"
+
+   Output :
+
+     -no change Not  restart (onDestory/oncreate )
+     -onConfigurationChanged method wil call
+     -layout -land folder layuts not work
+     -android tells not use this one.
+     -asyntask will work.
+
+
+ Test Case 2
+       manisfest config change removed
+
+    Output :
+
+       -Activty will restart
+       -we can set views using onSaveInstanceState and onRestoreInstanceState.
+       -Asyntask will destory ..
+       -layout -land folder layuts will work
+
+   @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putString("progress2_tv",""+progress2_tv.getText());
+        outState.putString("progressTv",""+progressTv.getText());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
+        outState.putString("progress2_tv",""+progress2_tv.getText());
+        outState.putString("progressTv",""+progressTv.getText());
+
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(savedInstanceState!=null) {
+            String progress2 = savedInstanceState.getString("progress2_tv", "");
+            String progress = savedInstanceState.getString("progressTv", "");
+            progress2_tv.setText(progress2);
+            progressTv.setText(progress);
+        }
+
+    }
+
+
+
+
