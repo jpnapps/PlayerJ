@@ -12,7 +12,7 @@ data class MUpdateData(
     val version_name: String?=null,
     val version_code: Int=1,
     val message: String?=null,
-    val errors: Any?=null,
+   // val errors: Any?=null,
     val browser_url: String?=null,
     val web_url: String?=null,
     val in_app: Boolean=true,

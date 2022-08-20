@@ -14,6 +14,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import com.google.gson.GsonBuilder
+import com.google.gson.Gson
+
+
+
 
 
 //update  ApplicationComponent replace singletoncompoennt from 2,3
@@ -22,13 +27,25 @@ import javax.inject.Singleton
 class NetModule {
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient:OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient:OkHttpClient,gson:Gson): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
+
             .build()
     }
+
+
+
+    @Singleton
+    @Provides
+    fun provideGSON(): Gson {
+        return GsonBuilder()
+            .setLenient()
+            .create()
+    }
+
 
     @Singleton
     @Provides

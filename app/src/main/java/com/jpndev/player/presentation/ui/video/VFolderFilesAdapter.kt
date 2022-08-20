@@ -32,9 +32,9 @@ class VistaVFolderAdapter(private val context: Context, private val carpetasVide
            // val intent = Intent(context, CastPlayActivity::class.java)
 
          //2208
-          //  intent.putExtra("path", carpetasVideosFiles[position].path)
+         intent.putExtra("path", carpetasVideosFiles[position].path)
 
-            intent.putExtra("path", "http://live12.akt.hotstar-cdn.net/hls/live/2003")
+            //intent.putExtra("path", "http://live12.akt.hotstar-cdn.net/hls/live/2003")
             intent.putExtra(IS_WEBURL, true)
             context.startActivity(intent)
         }

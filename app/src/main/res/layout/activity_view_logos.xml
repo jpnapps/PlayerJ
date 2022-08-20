@@ -82,14 +82,14 @@ android:tint="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/guideline_top"
 
             android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintRight_toLeftOf="@+id/json_req_dimv"
+            app:layout_constraintRight_toLeftOf="@+id/copy_dimv"
             app:height_percentage="4"
             android:src="@drawable/ic_refresh_24"
             android:tint="@color/green"
             />
 
         <com.jpndev.player.custom.DeviceFitImageView
-            android:id="@+id/json_req_dimv"
+            android:id="@+id/copy_dimv"
             android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
