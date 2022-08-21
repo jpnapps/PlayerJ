@@ -51,14 +51,10 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var logSourceImpl: LogSourceImpl
 
-    //nov 08 com laptop
-    var test = 0;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this, factory).get(TopQAViewModel::class.java)
         viewMainModel = ViewModelProvider(this, mainfactory).get(MainViewModel::class.java)
-        //nov 08 com laptop
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewMainModel.activity = this@MainActivity
@@ -66,10 +62,11 @@ class MainActivity : AppCompatActivity() {
         //storage Permission
         requestStPermission()
         appCenterInit()
-
-
     }
 
+    /**
+     * Method to setup navigation host
+     */
     private fun navInit() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -77,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(
             navController
         )
-
         /* val appBarConfiguration = AppBarConfiguration(
              setOf(
                  R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications,R.id.navigation_more
@@ -87,6 +83,9 @@ class MainActivity : AppCompatActivity() {
          */
     }
 
+    /**
+     * Method to setup app center
+     */
     private fun appCenterInit() {
         //Analytics https://appcenter.ms/users/appsjp
         /*
@@ -101,6 +100,9 @@ class MainActivity : AppCompatActivity() {
           )*/
     }
 
+    /**
+     * Method to request storage permission
+     */
     /*@RequiresApi(Build.VERSION_CODES.Q)*/
     private fun requestStPermission() = if (ContextCompat.checkSelfPermission(
             applicationContext,
@@ -115,12 +117,12 @@ class MainActivity : AppCompatActivity() {
             ), REQUEST_CODE_PERMISSION
         )
     } else {
-        Toast.makeText(this, "requestStPermission", Toast.LENGTH_SHORT).show()
         viewMainModel.refreshLocalVideos()
-        //videosFiles = obtenerVideos(this)
-
     }
 
+    /**
+     * Method to request permission result
+     */
     /*@RequiresApi(Build.VERSION_CODES.Q)*/
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -133,10 +135,6 @@ class MainActivity : AppCompatActivity() {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Permisos Granted", Toast.LENGTH_SHORT).show()
                     viewMainModel.refreshLocalVideos()
-                    /*  videosFiles = obtenerVideos(this )
-                     val fragmentTransaction = supportFragmentManager.beginTransaction()
-                     fragmentTransaction.replace(R.id.mainFragment, VFolderFragment(listaVFolder, videosFiles))
-                     fragmentTransaction.commit()*/
                 } else {
                     ActivityCompat.requestPermissions(
                         this,
@@ -147,6 +145,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Method to check all permissions granted or not
+     */
     fun hasAllPermissionsGranted(grantResults: IntArray): Boolean {
         for (grantResult in grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {

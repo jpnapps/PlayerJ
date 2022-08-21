@@ -1,6 +1,7 @@
 package com.jpndev.player.data.repository.dataSource
 
 import com.jpndev.player.data.model.Article
+import com.jpndev.player.data.model.MUpdateData
 import com.jpndev.player.data.model.PItem
 import com.jpndev.player.data.model.PJUrl
 import kotlinx.coroutines.flow.Flow
@@ -11,13 +12,16 @@ interface LocalDataSource {
      suspend fun deleteArticle(item : Article)
      suspend fun clearAll()
 
+     suspend fun saveAPPDatatoDb(item : MUpdateData):Long
+     fun getAPPDataFromDB(): MUpdateData
+     suspend fun deleteAppData()
+     fun getAPPDataFromDB2(): MUpdateData
 
      suspend fun savePItemtoDb(item : PItem): Long
      fun getPItemsFromDB(): Flow<List<PItem>>
      suspend fun updatePItem(pitem: PItem) : Int
      suspend fun deletePItem(item : PItem)
      suspend fun clearAllPItems()
-
 
      suspend fun savePJUrltoDb(item : PJUrl): Long
      fun getPJUrlsFromDB(): Flow<List<PJUrl>>

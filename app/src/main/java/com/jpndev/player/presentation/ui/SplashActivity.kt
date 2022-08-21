@@ -26,13 +26,11 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel= ViewModelProvider(this,factory).get(SplashViewModel::class.java)
         viewModel.activity=this@SplashActivity
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Handler(Looper.getMainLooper()).postDelayed({  viewModel.refreshAppUpdate()}, 2000)
-
         observeDatas()
     }
 

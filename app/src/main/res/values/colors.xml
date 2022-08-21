@@ -119,8 +119,15 @@
     <color name="colorPrimaryDarkbrown">#3A6CF4</color>
     <color name="colorPrimarybrown2">#0EC3F4</color>
 
+    <!--card color 2-->
+    <color name="blue_dark_1">#032171</color>
+    <color name="green_dark_1">#014740</color>
+    <color name="black_dark_1">#000207</color>
 
-
+    <!--bg home 2-->
+    <color name="blue_dark_2">#022583</color>
+    <color name="green_dark_2">#03574E</color>
+    <color name="black_dark_2">#010D2B</color>
 
 
     <color name="whitetransparent">#00ffffff</color>

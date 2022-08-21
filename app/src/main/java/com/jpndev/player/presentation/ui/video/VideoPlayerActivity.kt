@@ -70,7 +70,7 @@ class VideoPlayerActivity : AppCompatActivity() {
     }*/
     private fun initializePlayer() {
         val videoUrl=Uri.fromFile( File(path))
-    logSourceImpl.addLog("VPA videoUrl = "+videoUrl)
+      logSourceImpl.addLog("VPA videoUrl = "+videoUrl)
         mediaDataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, getString(R.string.app_name)))
         //val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(videoUrl)
      val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(MediaItem.fromUri(videoUrl))

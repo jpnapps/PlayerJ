@@ -9,45 +9,47 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceFragmentCompat
 import com.jpndev.player.BuildConfig
+import com.jpndev.player.MainActivity
 import com.jpndev.player.databinding.FragmentMoreBinding
 import com.jpndev.player.R
+import com.jpndev.player.presentation.ui.MainViewModel
 import com.jpndev.player.presentation.ui.about.VersionActivity
+import com.jpndev.player.presentation.ui.contact.ContactUsActivity
 import com.jpndev.player.presentation.ui.manage_log.ViewLogosActivity
 import com.jpndev.player.presentation.ui.video.CastPlayActivity
 import com.jpndev.player.presentation.ui.video.PlayActivity
 import com.jpndev.player.presentation.ui.video.PlayEditActivity
+import com.jpndev.player.presentation.ui.web.WebActivity
 import com.jpndev.player.ui.home.HomeViewModel
+import com.jpndev.player.utils.constants.Common
+import com.jpndev.player.utils.extensions.gone
+import com.jpndev.player.utils.extensions.visible
 import com.microsoft.appcenter.crashes.Crashes
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class MoreFragment : Fragment() {
 
-    //private lateinit var homeViewModel: HomeViewModel
-    private var _binding: FragmentMoreBinding? = null
+    lateinit var viewModel: MainViewModel
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentMoreBinding? = null
     private val binding get() = _binding!!
 
+     var privacy_url: String ?= Common.DEFAULT_PRIVACY_POLICY_URL
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-        /*  homeViewModel =
-              ViewModelProvider(this).get(HomeViewModel::class.java)*/
-
+        viewModel = (activity as MainActivity).viewMainModel
         _binding = FragmentMoreBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        /*val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
         return root
     }
 
@@ -59,7 +61,6 @@ class MoreFragment : Fragment() {
             binding.liflecycleCard.visibility = View.GONE
             binding.aboutUsCard.visibility = View.GONE
             binding.viewLogos.visibility = View.GONE
-            binding.liflecycleCard.visibility = View.VISIBLE
         } else {
             binding.viewLogos.visibility = View.VISIBLE
             binding.liflecycleCard.visibility = View.VISIBLE
@@ -67,6 +68,25 @@ class MoreFragment : Fragment() {
             binding.securityCard.visibility = View.VISIBLE
             binding.aboutUsCard.visibility = View.VISIBLE
         }
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.usecase?.getAPPDataFromDB2()?.privacy_policy_url?.let {
+               // viewModel.addLog("privacy_policy_url enetered = "+    it)
+                privacy_url=it
+            }
+        }
+        binding.privacyPolicyCard.setOnClickListener {
+            viewModel.addLog("click privacy_policy_url : "+    privacy_url)
+                val intent = Intent(activity, WebActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra(Common.PRIVACY_POLICY_URL, privacy_url)
+                activity?.startActivity(intent)
+        }
+        binding.contactUsCard.setOnClickListener {
+            val intent = Intent(activity, ContactUsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            activity?.startActivity(intent)
+        }
+
         binding.pwdManagerCard.setOnClickListener {
             val intent = Intent(activity, PlayEditActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -101,20 +121,17 @@ class MoreFragment : Fragment() {
             val intent = Intent(activity, ViewLogosActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             activity?.startActivity(intent)
-
         }
         binding.appinfoCard.setOnClickListener {
             val intent = Intent(activity, VersionActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             activity?.startActivity(intent)
-
         }
         binding.rateCard.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("https://play.google.com/store/apps/details?id=com.jpndev.player&hl=en")
             activity?.startActivity(intent)
-
         }
 
     }
