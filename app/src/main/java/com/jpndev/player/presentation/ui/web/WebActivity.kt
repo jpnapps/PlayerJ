@@ -11,7 +11,6 @@ import com.jpndev.player.utils.constants.Common
  * */
 class WebActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebBinding
-
     /**
      * onCreate Method
      * */
