@@ -25,10 +25,8 @@ class TopQAViewModel (
 
         fun getTopQA( page: Int) = viewModelScope.launch(Dispatchers.IO) {
             top_QA_list.postValue(Resource.Loading())
-
             try {
                 if (isNetworkAvailable(app)) {
-
                     val apiResult = usecase.executeTopQA(page)
                     top_QA_list.postValue(apiResult)
                 } else {

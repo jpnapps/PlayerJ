@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    style="@style/Base_Home_2.MM"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_v_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <com.jpndev.player.custom.DeviceFitImageView
+
+        android:id="@+id/backDimv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_2sdp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_arrow_back_24"
+        app:height_percentage="4"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_h_left"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_v_top"
+        app:parameter="fixed_ratio"
+        app:width_percentage="10" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/leftTitleTxv"
+        style="@style/ViewWrapContent.ToolbarTextViewLeft"
+        android:text="@string/small_text"
+        app:layout_constraintBottom_toBottomOf="@+id/backDimv"
+        app:layout_constraintLeft_toRightOf="@+id/backDimv"
+        app:layout_constraintTop_toTopOf="@+id/backDimv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@+id/leftTitleTxv"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_height="0dp"
+        android:id="@+id/rcv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,10 +16,10 @@ interface DAO {
     suspend fun updatePItem(pitem: PItem) : Int
 
     @Query("DELETE FROM pitem_table")
-    suspend fun deleteAllPItem()
+    suspend fun deleteAllPItem(): Integer
 
     @Delete
-    suspend fun deletePItem(item: PItem)
+    suspend fun deletePItem(item: PItem): Integer
 
 
     @Query("SELECT * FROM pitem_table")
@@ -34,10 +34,10 @@ interface DAO {
     suspend fun updatePJUrl(pitem: PJUrl) : Int
 
     @Query("DELETE FROM url_table")
-    suspend fun deleteAllPJUrl()
+    suspend fun deleteAllPJUrl(): Integer
 
     @Delete
-    suspend fun deletePJUrl(item: PJUrl)
+    suspend fun deletePJUrl(item: PJUrl): Integer
 
 
     @Query("SELECT * FROM url_table")

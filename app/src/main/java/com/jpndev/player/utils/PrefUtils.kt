@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.jpndev.player.data.model.MUpdateData
 
 const val IS_FIRST_TIME="isfirsttime"
 class PrefUtils {
@@ -76,6 +77,10 @@ class PrefUtils {
     fun save(key: String, value: Set<String>) {
         editor.putStringSet(key, value).apply()
     }
+
+ /*   fun save(key: String, value: MUpdateData) {
+        editor.putString(key, value).apply()
+    }*/
 
     fun getBoolean(key: String, defValue: Boolean) : Boolean {
         return preferences.getBoolean(key, defValue)

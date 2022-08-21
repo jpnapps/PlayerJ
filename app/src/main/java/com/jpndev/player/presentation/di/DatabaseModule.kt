@@ -1,4 +1,4 @@
- package com.jpndev.player.presentation.di
+package com.jpndev.player.presentation.di
 
 import android.app.Application
 import androidx.room.Room
@@ -18,27 +18,30 @@ import javax.inject.Singleton
 class DatabaseModule {
 
 
-
     @Singleton
     @Provides
     fun providesDatabase(app: Application): AppDatabase {
-        return  Room.databaseBuilder(app,
-            AppDatabase::class.java,"jpndev_android_db").
-            fallbackToDestructiveMigration().
-            build()
+        return Room.databaseBuilder(
+            app,
+            AppDatabase::class.java, "jpndev_android_db"
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Singleton
     @Provides
     fun providesArticleDAO(database: AppDatabase): ArticleDAO {
-        return  database.articleDao()
+        return database.articleDao()
     }
 
     @Singleton
     @Provides
     fun providesDAO(database: AppDatabase): DAO {
-        return  database.appDao()
+        return database.appDao()
     }
+
+    @Singleton
+    @Provides
+    fun providesupdateDAO(database: AppDatabase) = database.updateDAO()
 }
 
 

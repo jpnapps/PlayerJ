@@ -2,7 +2,9 @@ package com.jpndev.player.data.repository.dataSourceImpl
 
 import com.jpndev.player.data.db.ArticleDAO
 import com.jpndev.player.data.db.DAO
+import com.jpndev.player.data.db.UpdateDAO
 import com.jpndev.player.data.model.Article
+import com.jpndev.player.data.model.MUpdateData
 import com.jpndev.player.data.model.PItem
 import com.jpndev.player.data.model.PJUrl
 import com.jpndev.player.data.repository.dataSource.LocalDataSource
@@ -14,6 +16,7 @@ import kotlinx.coroutines.launch
 class LocalDataSourceImpl(
     private val articleDAO: ArticleDAO,
     private val pitemDAO: DAO,
+    private val updateDAO: UpdateDAO,
     private val logSource:LogSourceImpl
 ):LocalDataSource {
 
@@ -35,6 +38,24 @@ class LocalDataSourceImpl(
             articleDAO.deleteAllArticle()
         }
     }
+
+    /**
+     * Method save AppData to DB
+     * */
+    override suspend fun saveAPPDatatoDb(item: MUpdateData) = updateDAO.insert(item)
+
+    /**
+     * Method get AppData from DB
+     * returns MUpdateData
+     * */
+    override fun getAPPDataFromDB() = updateDAO.getUpdateData()
+
+    override fun getAPPDataFromDB2() = updateDAO.getAPPDataFromDB2()
+    /**
+     * Method delete AppData from DB
+     * */
+    override suspend fun deleteAppData() = updateDAO.deleteUpdateTable()
+
 
 
     override suspend fun savePItemtoDb(item: PItem) : Long{

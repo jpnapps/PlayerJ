@@ -1,50 +1,131 @@
 <resources>
 
     <!-- Base application theme. -->
-<!--
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        &lt;!&ndash; Customize your theme here. &ndash;&gt;
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <!--
+        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+            &lt;!&ndash; Customize your theme here. &ndash;&gt;
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+        </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
--->
+        <style name="AppTheme.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+        </style>
+    -->
     <!-- Base application theme. -->
 
-    <style name="NOCOLOR_MatchParent" >
+    <style name="NOCOLOR_MatchParent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
 
     </style>
 
+    <!-- MatchParent dimensions style -->
+    <style name="ViewMatchParent" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- WrapContent dimensions style -->
+    <style name="ViewWrapContent" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Sectional design style -->
+    <style name="ViewSection" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Sectional design style for height-->
+    <style name="ViewColumn" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- Contraint design style -->
+    <style name="ConstraintSection" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <!-- Contraint design style with height wrapcontent -->
+    <style name="ConstraintHeightWrapSection" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--Personal Information-->
+    <style name="ViewSection.WithPadding">
+        <item name="android:paddingStart">@dimen/_20sdp</item>
+        <item name="android:paddingEnd">@dimen/_20sdp</item>
+    </style>
+
+    <!-- Contact us card liner layout style -->
+    <style name="ViewSection.ContactUsCardViewStyle">
+
+
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Toolbar left header view style -->
+    <style name="ViewWrapContent.ToolbarTextViewLeft">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/app_white_txt</item>
+        <item name="android:fontFamily">@font/sofia_pro_semi_bold</item>
+        <item name="android:textSize">@dimen/_18ssp</item>
+    </style>
+
+    <!-- Contact us text view style -->
+    <style name="ViewWrapContent.ContactUsTextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/app_white_txt</item>
+        <item name="android:fontFamily">@font/sofia_pro_bold</item>
+    </style>
+
+    <!-- Contact us header text view style -->
+    <style name="ViewWrapContent.ContactUsTextView.HeaderTextView">
+        <item name="android:textSize">@dimen/contact_us_header_text</item>
+    </style>
+
+
     <style name="Base">
         <item name="android:background">?attr/bg_1</item>
     </style>
+
     <style name="Base.MatchParent" parent="Base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
 
-
     <style name="Base_Home">
         <item name="android:background">?attr/bg_home_1</item>
     </style>
+
     <style name="Base_Home.MatchParent" parent="Base_Home">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="Base_Home_2">
+        <item name="android:background">?attr/bg_home_2</item>
+    </style>
+
+    <style name="Base_Home_2.MM" parent="Base_Home_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
 
 
     <style name="Base_Detail">
         <item name="android:background">?attr/bg_detail_1</item>
     </style>
+
     <style name="Base_Detail.MatchParent" parent="Base_Detail">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -54,6 +135,7 @@
     <style name="Base_List">
         <item name="android:background">?attr/bg_list_1</item>
     </style>
+
     <style name="Base_List.MatchParent" parent="Base_List">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -62,11 +144,11 @@
     <style name="Base_RCV_TOP">
         <item name="android:background">?attr/bg_rcv_item_1</item>
     </style>
+
     <style name="Base_RCV_TOP.MatchParent" parent="Base_RCV_TOP">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
 
 
     <!-- BOrder 1-->
@@ -158,9 +240,7 @@
     </style>
 
 
-
-
-    <style name="Base_TXV_1" >
+    <style name="Base_TXV_1">
 
         <item name="android:textColor">?attr/text_color_1</item>
         <item name="android:fontFamily">@font/sofia_pro_bold</item>
@@ -172,8 +252,7 @@
     </style>
 
 
-
-    <style name="Base_TXV_2" >
+    <style name="Base_TXV_2">
 
         <item name="android:textColor">?attr/text_color_2</item>
         <item name="android:fontFamily">@font/sofia_pro_bold</item>
@@ -185,7 +264,7 @@
     </style>
 
 
-    <style name="Base_TXV_3" >
+    <style name="Base_TXV_3">
 
         <item name="android:textColor">?attr/text_color_3</item>
         <item name="android:fontFamily">@font/sofia_pro_regular</item>
@@ -197,7 +276,7 @@
     </style>
 
 
-    <style name="Base_TXV_4" >
+    <style name="Base_TXV_4">
 
         <item name="android:textColor">?attr/text_color_2</item>
         <item name="android:fontFamily">@font/sofia_pro_medium</item>
@@ -208,7 +287,7 @@
 
     </style>
 
-    <style name="Base_TXV_5" >
+    <style name="Base_TXV_5">
 
         <item name="android:textColor">?attr/text_color_5</item>
         <item name="android:fontFamily">@font/sofia_pro_light</item>
@@ -220,7 +299,7 @@
     </style>
 
 
-    <style name="BASE_FAB_1" >
+    <style name="BASE_FAB_1">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@android:drawable/ic_input_add</item>
@@ -230,18 +309,25 @@
     </style>
 
     <!--        <item name="cardBackgroundColor">?attr/bg_card_1</item>-->
-    <style name="BASE_CARD_1" >
-
-
+    <style name="BASE_CARD_1">
         <item name="cardBackgroundColor">?attr/bg_card_1</item>
         <item name="cardCornerRadius">@dimen/_10sdp</item>
         <item name="cardElevation">@dimen/_6sdp</item>
         <item name="cardMaxElevation">@dimen/_6sdp</item>
-        <item name="contentPadding">@dimen/_1sdp</item>
+        <item name="contentPadding">@dimen/_8sdp</item>
+    </style>
+    <style name="BASE_CARD_1.MW" parent="BASE_CARD_1">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">?attr/bg_card_1</item>
+        <item name="cardCornerRadius">@dimen/_10sdp</item>
+        <item name="cardElevation">@dimen/_6sdp</item>
+        <item name="cardMaxElevation">@dimen/_6sdp</item>
+        <item name="contentPadding">@dimen/_8sdp</item>
     </style>
 
-    <style name="BASE_CARD_2" >
 
+    <style name="BASE_CARD_2">
 
         <item name="cardBackgroundColor">?attr/bg_card_2</item>
         <item name="cardCornerRadius">@dimen/_10sdp</item>
@@ -250,7 +336,8 @@
         <item name="contentPadding">@dimen/_1sdp</item>
     </style>
 
-    <style name="BASE_CARD_3" >
+
+    <style name="BASE_CARD_3">
 
 
         <item name="cardBackgroundColor">?attr/bg_fab_1</item>
@@ -260,15 +347,21 @@
         <item name="contentPadding">@dimen/_1sdp</item>
     </style>
 
+    <style name="ConstraintHeightWrapSection.BASE_CARD_4">
 
-
-
+        <item name="cardBackgroundColor">?attr/bg_card_2</item>
+        <item name="cardCornerRadius">@dimen/_6sdp</item>
+        <item name="cardElevation">@dimen/_3sdp</item>
+        <item name="cardMaxElevation">@dimen/_3sdp</item>
+        <item name="contentPadding">@dimen/_10sdp</item>
+    </style>
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:paddingBottom">8dp</item>
-</style>
-    <style name="CardViewLayout" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="CardViewLayout">
 
         <item name="android:layout_width">0dp</item>
         <item name="cardBackgroundColor">@color/app_white_bg</item>
@@ -278,7 +371,7 @@
         <item name="contentPadding">@dimen/_1sdp</item>
     </style>
 
-    <style name="NSV_Cardview_Child" >
+    <style name="NSV_Cardview_Child">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:descendantFocusability">blocksDescendants</item>
@@ -289,7 +382,7 @@
         <item name="android:paddingRight">0dp</item>
     </style>
 
-    <style name="NSV_Cardview_Child.Padding" >
+    <style name="NSV_Cardview_Child.Padding">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:descendantFocusability">blocksDescendants</item>
@@ -301,7 +394,7 @@
     </style>
 
 
-    <style name="DIMV_Template1" >
+    <style name="DIMV_Template1">
 
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -313,7 +406,7 @@
         <item name="android:layout_marginTop">@dimen/_6sdp</item>
     </style>
 
-    <style name="IMV_Template1" >
+    <style name="IMV_Template1">
 
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -324,8 +417,7 @@
     </style>
 
 
-
-    <style name="txv_template_1" >
+    <style name="txv_template_1">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -336,7 +428,7 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
     <!--  <item name="android:textColor">?attr/primaryTextColor</item>-->
-    <style name="txv_template_2" >
+    <style name="txv_template_2">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -346,7 +438,8 @@
         <item name="android:textColor">@color/text1_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_template_3" >
+
+    <style name="txv_template_3">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -356,7 +449,8 @@
         <item name="android:textColor">@color/text1_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_sub_template_1" >
+
+    <style name="txv_sub_template_1">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -367,7 +461,7 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
-    <style name="txv_sub_template_2" >
+    <style name="txv_sub_template_2">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -378,7 +472,7 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
-    <style name="txv_sub_template_3" >
+    <style name="txv_sub_template_3">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -389,7 +483,7 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
-    <style name="txv_sub_template_4" >
+    <style name="txv_sub_template_4">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -400,7 +494,7 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
-    <style name="txv_sub_template_5" >
+    <style name="txv_sub_template_5">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -410,7 +504,8 @@
         <item name="android:textColor">@color/text1_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_other_template_0" >
+
+    <style name="txv_other_template_0">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -420,7 +515,8 @@
         <item name="android:textColor">@color/text4_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_other_template_1" >
+
+    <style name="txv_other_template_1">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -430,7 +526,8 @@
         <item name="android:textColor">@color/text4_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_other_template_2" >
+
+    <style name="txv_other_template_2">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -440,7 +537,8 @@
         <item name="android:textColor">@color/text4_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_other_template_3" >
+
+    <style name="txv_other_template_3">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -450,7 +548,8 @@
         <item name="android:textColor">@color/cursor1_color</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_other_template_4" >
+
+    <style name="txv_other_template_4">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -461,7 +560,7 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
-    <style name="txv_other_template_5" >
+    <style name="txv_other_template_5">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -471,7 +570,8 @@
         <item name="android:textColor">?attr/primaryTextColor</item>
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
-    <style name="txv_other_template_6" >
+
+    <style name="txv_other_template_6">
 
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -482,7 +582,10 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
-
-
+    <!--Player Lock style-->
+    <style name="ClickableView">
+        <item name="colorControlHighlight">@android:color/darker_gray</item>
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+    </style>
 
 </resources>

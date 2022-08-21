@@ -2,11 +2,17 @@ package com.jpndev.player.presentation.ui.video
 
 /*import com.google.android.exoplayer2.ExoPlayerFactory*/
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -22,22 +28,14 @@ import com.google.android.exoplayer2.util.Util
 import com.google.android.gms.cast.MediaInfo
 import com.google.android.gms.cast.MediaMetadata
 import com.google.android.gms.cast.MediaQueueItem
-import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.common.images.WebImage
 import com.jpndev.player.R
 import com.jpndev.player.data.repository.dataSourceImpl.LogSourceImpl
-import com.jpndev.player.databinding.ActivityCastPlayBinding
-import com.jpndev.player.utils.ClassA
-import com.jpndev.player.utils.ClassA.pos
-
-import com.jpndev.player.utils.ClassC
-import com.jpndev.player.utils.JavaClass
+import com.jpndev.player.databinding.ActivityPlayBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
-
-
 
 
 @AndroidEntryPoint
@@ -45,7 +43,6 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
 
     @Inject
     lateinit var logSourceImpl: LogSourceImpl
-    private lateinit var binding: ActivityCastPlayBinding
     private lateinit var path: String
 
     // the local and remote players
@@ -65,18 +62,79 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
     private var currentWindow = 0
     private var playbackPosition: Long = 0
 
+    var isFullScreen = false
+    var isLock = false
+
+    //private lateinit var binding: ActivityCastPlayBinding
+    private lateinit var binding2: ActivityPlayBinding
+
+    // private lateinit var bindingCustomController: CustomControllerViewBinding
+    private lateinit var imageViewFullScreen: ImageView
+    private lateinit var imageViewLock: ImageView
+    private lateinit var linearLayoutControlUp: LinearLayout
+    private lateinit var linearLayoutControlBottom: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_play)
-        castContext = CastContext.getSharedInstance(this)
-        path = intent.getStringExtra("path")?:"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-        logSourceImpl.addLog("CPA path = "+path)
-
-        castPlayer = CastPlayer(castContext, CustomConverter())
-        castPlayer?.setSessionAvailabilityListener(this)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        binding2 = ActivityPlayBinding.inflate(layoutInflater)
+        val view = binding2.root
+        setContentView(view)
+        setWindowFullScreen()
+        /* supportActionBar?.hide()*/
         playerView = findViewById(R.id.exoplayer_video)
+        imageViewFullScreen = findViewById(R.id.imageViewFullScreen)
+        imageViewLock = findViewById(R.id.imageViewLock)
+        linearLayoutControlUp = findViewById(R.id.linearLayoutControlUp)
+        linearLayoutControlBottom = findViewById(R.id.linearLayoutControlBottom)
+        setLockScreen()
+        setFullScreen()
+        path = intent.getStringExtra("path") ?: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+        logSourceImpl.addLog("CPA path = " + path)
+        initCastSetup()
     }
 
+    /**
+     * Method to  init CastSetup
+     * */
+    private fun initCastSetup() {
+        castContext = CastContext.getSharedInstance(this)
+        castPlayer = CastPlayer(castContext, CustomConverter())
+        castPlayer?.setSessionAvailabilityListener(this)
+    }
+
+    /**
+     * Method to set WindowFullScreen
+     * */
+    private fun setWindowFullScreen() {
+        window?.let {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+            hideStatusBar()
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.setDecorFitsSystemWindows(false)
+            }*/
+        }
+    }
+
+    fun hideStatusBar() {
+        logSourceImpl.addLog("hideStatusBar ")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        }
+    }
     /**
      * Starting with API level 24 Android supports multiple windows. As our app can be visible but
      * not active in split window mode, we need to initialize the player in onStart. Before API level
@@ -105,12 +163,6 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
      */
     override fun onPause() {
         super.onPause()
-
-
-
-
-
-
         if (Util.SDK_INT < 24) {
             currentPlayer?.rememberState()
             releaseLocalPlayer()
@@ -119,8 +171,6 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
 
     override fun onStop() {
         super.onStop()
-
-
         if (Util.SDK_INT >= 24) {
             currentPlayer?.rememberState()
             releaseLocalPlayer()
@@ -142,8 +192,12 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
      */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val result = super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.menu_cast, menu)
-        castButton = CastButtonFactory.setUpMediaRouteButton(applicationContext, menu, R.id.media_route_menu_item)
+        /*  menuInflater.inflate(R.menu.menu_cast, menu)
+          castButton = CastButtonFactory.setUpMediaRouteButton(
+              applicationContext,
+              menu,
+              R.id.media_route_menu_item
+          )*/
         return result
     }
 
@@ -151,10 +205,10 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
      * When back button is pressed, close this activity, which will go back to previous screen
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
+        /*if (item.itemId == android.R.id.home) {
             finish()
             return true
-        }
+        }*/
         return super.onOptionsItemSelected(item)
     }
 
@@ -177,21 +231,10 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
         // sometimes if onStart() runs and then onResume() checks if the player is null
         //exoPlayer = SimpleExoPlayer.Builder(this).build()
 
-        exoPlayer= SimpleExoPlayer.Builder(this).setSeekForwardIncrementMs(3000)
+        exoPlayer = SimpleExoPlayer.Builder(this).setSeekForwardIncrementMs(3000)
             .setSeekBackIncrementMs(1000)
             .build()
-
         playerView.player = exoPlayer
-
-        // create the CastPlayer that communicates with receiver app
-        // but because we don't release the CastPlayer on each onPause()/onStop(), we don't have
-        // to recreate it if it exists and the Activity wakes up
-   /*     if (castPlayer == null) {
-           // castPlayer = CastPlayer(castContext)
-            castPlayer = CastPlayer(castContext, CustomConverter())
-
-            castPlayer?.setSessionAvailabilityListener(this)
-        }*/
 
         // start the playback
         if (castPlayer?.isCastSessionAvailable == true) {
@@ -206,15 +249,17 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
      */
     private fun startPlayback() {
         //val uri = Uri.parse(videoClipUrl)
-        val uri=Uri.fromFile( File(path))
+        val uri = Uri.fromFile(File(path))
         // if the current player is the ExoPlayer, play from it
         if (currentPlayer == exoPlayer) {
             // build the MediaSource from the URI
 
-            val dataSourceFactory = DefaultDataSourceFactory(this@CastPlayActivity, getString(R.string.app_name))
-           // val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri)
-            val mediaSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-                MediaItem.fromUri(uri))
+            val dataSourceFactory =
+                DefaultDataSourceFactory(this@CastPlayActivity, getString(R.string.app_name))
+            val mediaSource: MediaSource =
+                ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
+                    MediaItem.fromUri(uri)
+                )
             // use stored state (if any) to resume (or start) playback
             exoPlayer?.playWhenReady = playWhenReady
             exoPlayer?.seekTo(currentWindow, playbackPosition)
@@ -234,9 +279,10 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
                 .setMetadata(metadata)
                 .build()
             val mediaqueueItem = MediaQueueItem.Builder(mediaInfo).build()
-            val mediaItem: MediaItem = MediaItem.Builder().setUri(uri).setTag(mediaqueueItem).build()
-          //  val mediaItem = MediaItem.Builder(mediaInfo).build()
-       //   castPlayer?.loadItem(mediaItem, playbackPosition)
+            val mediaItem: MediaItem =
+                MediaItem.Builder().setUri(uri).setTag(mediaqueueItem).build()
+            //  val mediaItem = MediaItem.Builder(mediaInfo).build()
+            //   castPlayer?.loadItem(mediaItem, playbackPosition)
             castPlayer?.setMediaItem(mediaItem, playbackPosition)
             exoPlayer.setMediaItem(mediaItem);
             //castPlayer.setMediaItem(mediaItem,playbackPosition.asJava().toLong() )
@@ -258,6 +304,7 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
                 .build()
         }
     }
+
     /**
      * Sets the current player to the selected player and starts playback.
      */
@@ -273,10 +320,8 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
             }
             it.stop(true)
         }
-
         // set the new player
         currentPlayer = player
-
         // set up the playback
         startPlayback()
     }
@@ -295,7 +340,7 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
      */
     private fun releaseLocalPlayer() {
         exoPlayer?.release()
-       // exoPlayer = null
+        // exoPlayer = null
         playerView.player = null
     }
 
@@ -305,6 +350,87 @@ class CastPlayActivity : AppCompatActivity(), SessionAvailabilityListener {
     private fun releaseRemotePlayer() {
         castPlayer?.setSessionAvailabilityListener(null)
         castPlayer?.release()
-       // castPlayer = null
+        // castPlayer = null
     }
+
+    /**
+     * Method to show/hide Lock layout
+     * @param lock: Boolean
+     * */
+    private fun lockScreen(lock: Boolean) {
+        if (lock) {
+            linearLayoutControlUp.visibility = View.INVISIBLE
+            linearLayoutControlBottom.visibility = View.INVISIBLE
+        } else {
+            linearLayoutControlUp.visibility = View.VISIBLE
+            linearLayoutControlBottom.visibility = View.VISIBLE
+        }
+    }
+
+    /**
+     * Method to handling Lock
+     * */
+    private fun setLockScreen() {
+        logSourceImpl.addLog("setLockScreen ")
+        imageViewLock.setOnClickListener {
+            logSourceImpl.addLog("imageViewLock clicked " + isLock)
+            if (!isLock) {
+                imageViewLock.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.ic_baseline_lock
+                    )
+                )
+            } else {
+                imageViewLock.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.ic_baseline_lock_open
+                    )
+                )
+            }
+            isLock = !isLock
+            lockScreen(isLock)
+        }
+    }
+
+    /**
+     * Method to handling FullScreen
+     * */
+    @SuppressLint("SourceLockedOrientationActivity")
+    private fun setFullScreen() {
+        logSourceImpl.addLog("setFullScreen ")
+        imageViewFullScreen.setOnClickListener {
+            logSourceImpl.addLog("imageViewFullScreen clicked " + isFullScreen)
+            if (!isFullScreen) {
+                imageViewFullScreen.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.ic_baseline_fullscreen_exit
+                    )
+                )
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+            } else {
+                imageViewFullScreen.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.ic_baseline_fullscreen
+                    )
+                )
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            }
+            isFullScreen = !isFullScreen
+        }
+    }
+
+    /**
+     * Method to onBackPressed
+     * */
+    override fun onBackPressed() {
+        if (isLock) return
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            imageViewFullScreen.performClick()
+        } else super.onBackPressed()
+    }
+
 }

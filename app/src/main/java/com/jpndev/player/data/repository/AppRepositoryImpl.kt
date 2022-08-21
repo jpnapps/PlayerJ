@@ -12,23 +12,23 @@ import retrofit2.Response
 class AppRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-):AppRepository {
+) : AppRepository {
 
 
-    override suspend fun getTopQA(page : Int): Resource<APIResponse> {
+    override suspend fun getTopQA(page: Int): Resource<APIResponse> {
         return responseToResource(remoteDataSource.getTopQA(page))
     }
 
- /*   override suspend fun getPList(page: Int): PListResponse {
-        return PListResponse()
-    }*/
+    /*   override suspend fun getPList(page: Int): PListResponse {
+           return PListResponse()
+       }*/
 
-    override suspend fun savePItem(item: PItem) : Long{
-      return  localDataSource.savePItemtoDb(item)
+    override suspend fun savePItem(item: PItem): Long {
+        return localDataSource.savePItemtoDb(item)
     }
 
     override suspend fun updatePItem(item: PItem): Int {
-        return  localDataSource.updatePItem(item)
+        return localDataSource.updatePItem(item)
     }
 
     override suspend fun deletePItem(item: PItem) {
@@ -43,12 +43,29 @@ class AppRepositoryImpl(
         return responseToUpdateResource(remoteDataSource.getUpdateData())
     }
 
+    /**
+     * Method save AppData to DB
+     * */
+    override suspend fun saveAPPDatatoDb(item: MUpdateData) = localDataSource.saveAPPDatatoDb(item)
+
+    /**
+     * Method get AppData from DB
+     * returns MUpdateData
+     * */
+    override suspend fun getAPPDataFromDB() = localDataSource.getAPPDataFromDB()
+
+    override fun getAPPDataFromDB2() = localDataSource.getAPPDataFromDB2()
+    /**
+     * Method delete AppData from DB
+     * */
+    override suspend fun deleteAppDataFromDB() = localDataSource.deleteAppData()
+
     override suspend fun savePJUrl(item: PJUrl): Long {
-        return  localDataSource.savePJUrltoDb(item)
+        return localDataSource.savePJUrltoDb(item)
     }
 
     override suspend fun updatePJUrl(item: PJUrl): Int {
-        return  localDataSource.updatePJUrl(item)
+        return localDataSource.updatePJUrl(item)
     }
 
     override suspend fun deletePJUrl(item: PJUrl) {
@@ -64,18 +81,18 @@ class AppRepositoryImpl(
     }
 
 
-    private fun responseToResource(response:Response<APIResponse>):Resource<APIResponse>{
-        if(response.isSuccessful){
-            response.body()?.let {result->
+    private fun responseToResource(response: Response<APIResponse>): Resource<APIResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { result ->
                 return Resource.Success(result)
             }
         }
         return Resource.Error(response.message())
     }
 
-    private fun responseToUpdateResource(response:Response<MUpdateData>):Resource<MUpdateData>{
-        if(response.isSuccessful){
-            response.body()?.let {result->
+    private fun responseToUpdateResource(response: Response<MUpdateData>): Resource<MUpdateData> {
+        if (response.isSuccessful) {
+            response.body()?.let { result ->
                 return Resource.Success(result)
             }
         }
@@ -83,16 +100,15 @@ class AppRepositoryImpl(
     }
 
 
+    /* override suspend fun saveNews(QA: QA) {
+         localDataSource.saveArticletoDb(QA)
+     }
 
-   /* override suspend fun saveNews(QA: QA) {
-        localDataSource.saveArticletoDb(QA)
-    }
+     override suspend fun deleteNews(QA: QA) {
+         localDataSource.deleteArticle(QA)
+     }
 
-    override suspend fun deleteNews(QA: QA) {
-        localDataSource.deleteArticle(QA)
-    }
-
-    override  fun getSavedNews(): Flow<List<QA>> {
-      return  localDataSource.getArticlesFromDB()
-    }*/
+     override  fun getSavedNews(): Flow<List<QA>> {
+       return  localDataSource.getArticlesFromDB()
+     }*/
 }
