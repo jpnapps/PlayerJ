@@ -31,17 +31,11 @@ import com.jpndev.player.domain.usecase.UseCase
 import com.jpndev.player.presentation.ui.HOME_WEBURL
 import com.jpndev.player.presentation.ui.IS_WEBURL
 import com.jpndev.player.presentation.ui.VideosFiles
-import com.jpndev.player.presentation.ui.video.CastPlayActivity
-import com.jpndev.player.presentation.ui.video.PlayActivity
-import com.jpndev.player.presentation.ui.video.VFolderActivity
-import com.jpndev.player.presentation.ui.video.VideoPlayerActivity
-import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 
 class PlayEditViewModel (
@@ -174,7 +168,7 @@ class PlayEditViewModel (
     }
 
     fun showVFolderActivity(temp: Activity?=activity,item:String) =viewModelScope.launch {
-        val intent = Intent(temp, VFolderActivity::class.java)
+        val intent = Intent(temp, VFolderDetailActivity::class.java)
         //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra("carpetaNombre", item)
         activity?.startActivity(intent)
@@ -407,8 +401,8 @@ class PlayEditViewModel (
             )
 
             val packagename = "com.jpndev.player"
-            alertDialogBuilder.setCancelable(!obj.is_force_update)
-            if(!obj.is_force_update)
+            alertDialogBuilder.setCancelable(!obj.force_update)
+            if(!obj.force_update)
                 alertDialogBuilder.setNegativeButton("cancel") { dialog, id -> //getPackageName()
              /*       val intent = Intent(activity, HomeActivity::class.java)
                     startActivity(intent)*/

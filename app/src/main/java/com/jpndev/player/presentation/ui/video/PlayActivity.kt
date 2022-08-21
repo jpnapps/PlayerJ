@@ -45,16 +45,14 @@ class PlayActivity : AppCompatActivity() {
         setContentView(R.layout.activity_play)
         setFullScreen()
         supportActionBar?.hide()
-
         playerView = findViewById(R.id.exoplayer_video)
-
         val path = intent.getStringExtra("path")
-        val isWebpath = intent.getBooleanExtra(IS_WEBURL, false)
-        logSourceImpl.addLog("PA path = " + path + " isWebpath = " + isWebpath)
+        // val isWebpath = intent.getBooleanExtra(IS_WEBURL, false)
+        logSourceImpl.addLog("PA path = " + path)
+        // logSourceImpl.addLog("PA path = " + path + " isWebpath = " + isWebpath)
         if (path != null) {
-            //val uri = Uri.parse(path)
-            val uri = if (isWebpath) Uri.parse(path) else Uri.fromFile(File(path))
-            logSourceImpl.addLog("PA uri = " + uri)
+            val uri = Uri.parse(path)
+            // val uri = if (isWebpath) Uri.parse(path) else Uri.fromFile(File(path))
             simpleExoPlayer = SimpleExoPlayer.Builder(this).setSeekForwardIncrementMs(6000)
                 .setSeekBackIncrementMs(6000)
                 .build()
@@ -62,7 +60,6 @@ class PlayActivity : AppCompatActivity() {
                 this,
                 Util.getUserAgent(this, getString(R.string.app_name))
             )
-            logSourceImpl.addLog("PA app name = " + getString(R.string.app_name))
             val mediaSource: MediaSource =
                 ProgressiveMediaSource.Factory(factory).createMediaSource(
                     MediaItem.fromUri(uri)
@@ -167,7 +164,7 @@ class PlayActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val params = PictureInPictureParams.Builder()
                 this.enterPictureInPictureMode(params.build())
-               // this.setAutoEnterEnabled(true)
+                // this.setAutoEnterEnabled(true)
             } else {
                 this.enterPictureInPictureMode()
             }

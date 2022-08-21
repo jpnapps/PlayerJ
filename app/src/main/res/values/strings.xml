@@ -19,6 +19,16 @@
     <string name="youAreNotUpdatedMessage1">\s now</string>
     <string name="update">Update</string>
 
+    <!-- Contact us Email us header -->
+    <string name="contact_us_email_us">Email us at</string>
+    <!-- Contact us -->
+    <string name="contact_us">Contact us </string>
+    <!-- PlayerJ label -->
+    <string name="support_email_subject">{AppName} Contact Us</string>
+    <!-- Message to show if there is no email client -->
+    <string name="def_no_email_client_found">There is no email client installed on your device</string>
+    <!-- privacy policy -->
+    <string name="privacy_policy">Privacy Policy </string>
 
     <string name="pwd_manager">Password Manager</string>
     <string name="security">Security</string>
@@ -40,7 +50,7 @@
     <string name="invalid_email">Not a valid Email</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-<!--    <string name="small_text">"Loreum Ipsum"</string>-->
+    <!--    <string name="small_text">"Loreum Ipsum"</string>-->
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

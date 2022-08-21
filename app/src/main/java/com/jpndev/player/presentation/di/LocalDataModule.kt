@@ -2,6 +2,7 @@ package com.jpndev.newsapiclient.presentation.di
 
 import com.jpndev.player.data.db.ArticleDAO
 import com.jpndev.player.data.db.DAO
+import com.jpndev.player.data.db.UpdateDAO
 import com.jpndev.player.data.repository.dataSource.LocalDataSource
 import com.jpndev.player.data.repository.dataSourceImpl.LocalDataSourceImpl
 import com.jpndev.player.data.repository.dataSourceImpl.LogSourceImpl
@@ -22,9 +23,10 @@ class LocalDataModule {
     fun provideLocalDataSource(
         articleDAO: ArticleDAO,
         pitemDAO: DAO,
+        updateDAO: UpdateDAO,
         logSource: LogSourceImpl
     ): LocalDataSource {
-       return LocalDataSourceImpl(articleDAO,pitemDAO,logSource)
+       return LocalDataSourceImpl(articleDAO,pitemDAO,updateDAO,logSource)
     }
 
 }

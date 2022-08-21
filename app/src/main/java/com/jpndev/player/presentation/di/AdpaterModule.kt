@@ -1,10 +1,8 @@
 package com.jpndev.player.presentation.di
-
-
-
 import android.content.Context
 import com.jpndev.player.VFolderAdapter
 import com.jpndev.player.presentation.ui.topqa.QAAdapter
+import com.jpndev.player.presentation.ui.video.VFolderFilesAdapter
 import com.jpndev.player.presentation.ui.video.VideoAdapter
 import dagger.Module
 import dagger.Provides
@@ -33,7 +31,6 @@ class AdpaterModule {
     ): VideoAdapter {
         return VideoAdapter( appContext)
     }
-
     @Singleton
     @Provides
     fun provideVFolderAdapter(
@@ -42,6 +39,13 @@ class AdpaterModule {
         return VFolderAdapter(appContext)
     }
 
+    @Singleton
+    @Provides
+    fun provideVFolderFilesAdapter(
+        @ApplicationContext appContext: Context
+    ): VFolderFilesAdapter {
+        return VFolderFilesAdapter(appContext)
+    }
 
 /*
    @Singleton

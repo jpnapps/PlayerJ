@@ -18,10 +18,20 @@
         android:theme="@style/Theme.App.System"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.contact.ContactUsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.web.WebActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.about.VersionActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".presentation.ui.SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,35 +46,43 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.manage_log.ViewLogosActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask" />
         <activity
-            android:name=".presentation.ui.video.VFolderActivity">
-              <meta-data
+            android:name=".presentation.ui.video.VFolderDetailActivity"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".presentation.ui.video.PlayActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTask"
             android:resizeableActivity="true"
-            android:supportsPictureInPicture="true"
-            android:launchMode="singleTop" />
+            android:supportsPictureInPicture="true" />
         <activity
             android:name=".presentation.ui.video.PlayEditActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
             android:launchMode="singleTop" />
         <activity
             android:name=".presentation.ui.video.CastPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
             android:launchMode="singleTop"
-            android:theme="@style/CastTheme" />
+     />
+        <!--       android:theme="@style/CastTheme" -->
         <activity
             android:name=".presentation.ui.video.VideoPlayerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
             android:launchMode="singleTop">
 
             <!-- android:theme="@style/PlayerTheme" -->

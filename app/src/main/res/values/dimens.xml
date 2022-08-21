@@ -15,8 +15,39 @@
     <dimen name="sp26">26sp</dimen>
     <dimen name="sp36">36sp</dimen>
     <dimen name="sp12">12sp</dimen>
+    <!--padding-->
+    <dimen name="padding_xsmall">2dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="padding_large">15dp</dimen>
+    <dimen name="padding_xlarge">20dp</dimen>
+    <dimen name="padding_xxlarge">30dp</dimen>
+    <dimen name="padding_xxxlarge">40dp</dimen>
 
+    <!--margins-->
+    <dimen name="margin_xxxsmall">1dp</dimen>
+    <dimen name="margin_xxsmall">3dp</dimen>
+    <dimen name="margin_xsmall">5dp</dimen>
+    <dimen name="margin_med">7dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_medium">15dp</dimen>
+    <dimen name="margin_xmedium">18dp</dimen>
+    <dimen name="margin_large">20dp</dimen>
+    <dimen name="margin_xlarge">30dp</dimen>
+    <dimen name="margin_xxlarge">40dp</dimen>
+    <dimen name="margin_xxxlarge">80dp</dimen>
+    <dimen name="margin_large_negative">-25dp</dimen>
+    <dimen name="margin_overflow_menu">10dp</dimen>
 
+    <!-- Contact us screen related -->
+    <dimen name="contact_us_logo_margin_top">27dp</dimen>
+    <dimen name="contact_us_card_margin_horizontal">10dp</dimen>
+    <dimen name="contact_us_card_corner_radius">6dp</dimen>
+    <dimen name="contact_us_card_stroke_width">1pt</dimen>
+    <!-- Contact us header text size -->
+    <dimen name="contact_us_header_text">@dimen/_14ssp</dimen>
+    <!-- Contact us email text size-->
+    <dimen name="contact_us_email_text">@dimen/_14ssp</dimen>
     <dimen name="text_singleline_dp">40dp</dimen>
 
 

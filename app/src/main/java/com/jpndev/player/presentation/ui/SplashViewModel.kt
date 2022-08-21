@@ -10,68 +10,62 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
-import android.text.Html
-import android.util.Log
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.*
 import com.jpndev.player.MainActivity
 import com.jpndev.player.R
-import com.jpndev.player.data.model.APIResponse
 import com.jpndev.player.data.model.MUpdateData
 import com.jpndev.player.data.util.Resource
 import com.jpndev.player.domain.usecase.UseCase
 import com.jpndev.player.presentation.ui.video.PlayActivity
-import com.jpndev.player.presentation.ui.video.VFolderActivity
-import com.jpndev.player.presentation.ui.video.VideoPlayerActivity
-import dagger.Provides
+import com.jpndev.player.presentation.ui.video.VFolderDetailActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
-class SplashViewModel (
+class SplashViewModel(
     private val app: Application,
     public val usecase: UseCase
 
-) : AndroidViewModel(app)
-{
+) : AndroidViewModel(app) {
 
-    lateinit var activity :Activity
+    lateinit var activity: Activity
+    fun addLog(log_text: String) =
+        usecase.logsource.addLog("" + log_text)
+
+    fun addStudioLog(log_text: String) =
+        usecase.logsource.addStudioLog("" + log_text)
 
 
-    fun setActiivty(temp: Activity) =viewModelScope.launch {
-        activity=temp
+    fun setActiivty(temp: Activity) = viewModelScope.launch {
+        activity = temp
     }
 
 
-    fun showMainAcivity(temp: Activity?=activity) =viewModelScope.launch {
+    fun showMainAcivity(temp: Activity? = activity) = viewModelScope.launch {
         val intent = Intent(temp, MainActivity::class.java)
-    //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         activity?.startActivity(intent)
         activity?.finish()
     }
 
-    fun showPlayActivity(temp: Activity?=activity,path:String) =viewModelScope.launch {
+    fun showPlayActivity(temp: Activity? = activity, path: String) = viewModelScope.launch {
         val intent = Intent(temp, PlayActivity::class.java)
         //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra("path", path)
         activity?.startActivity(intent)
     }
 
-    fun showVFolderActivity(temp: Activity?=activity,item:String) =viewModelScope.launch {
-        val intent = Intent(temp, VFolderActivity::class.java)
+    fun showVFolderActivity(temp: Activity? = activity, item: String) = viewModelScope.launch {
+        val intent = Intent(temp, VFolderDetailActivity::class.java)
         //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra("carpetaNombre", item)
         activity?.startActivity(intent)
     }
-
-
-
-
-
 
 
     private fun isNetworkAvailable(context: Context?): Boolean {
@@ -109,46 +103,40 @@ class SplashViewModel (
 
     fun refreshAppUpdate() = viewModelScope.launch(Dispatchers.IO) {
         app_update_mld.postValue(Resource.Loading())
-
         try {
             if (isNetworkAvailable(app)) {
-
                 val apiResult = usecase.executeAppUpdate()
-                 apiResult.data?.let {
-                   // checkUpdate(it)
+                apiResult.data?.let {
+                    usecase.saveAPPDatatoDb(it)
+                    // checkUpdate(it)
                     app_update_mld.postValue(Resource.Success(it))
                 }
-
-
             } else {
-                app_update_mld.postValue(Resource.Error("No Internet Connection"))
+                app_update_mld.postValue(Resource.ServerError("No Internet Connection"))
             }
-
         } catch (e: Exception) {
-            app_update_mld.postValue(Resource.ServerError("refreshAppUpdate "+e.message.toString()))
+            app_update_mld.postValue(Resource.ServerError("refreshAppUpdate " + e.message.toString()))
         }
 
     }
-    public fun checkUpdate(obj: MUpdateData) {
 
-        if(getCurrentVersionCode()>0)
-        {
-            if(obj.version_code>getCurrentVersionCode())
-            {
+    public fun checkUpdate(obj: MUpdateData) {
+        addLog("checkUpdate app version" + getCurrentVersionCode() + " latest version" + obj.version_code)
+        if (getCurrentVersionCode() > 0) {
+            if (obj.version_code > getCurrentVersionCode()) {
                 showForceUpdateDialog(obj)
-            }
-            else
-            {
+            } else {
                 showMainAcivity()
             }
-        }else{
+        } else {
             showMainAcivity()
 
         }
     }
-    private fun getCurrentVersionCode() :Int{
 
-        var currentVersion_code: Int=-1
+    private fun getCurrentVersionCode(): Int {
+
+        var currentVersion_code: Int = -1
         val packageManager = app.packageManager
         var packageInfo: PackageInfo? = null
         try {
@@ -160,25 +148,39 @@ class SplashViewModel (
 
         return currentVersion_code
     }
-    fun showForceUpdateDialog(obj: MUpdateData,temp: Activity?=activity) {
+
+    fun showForceUpdateDialog(obj: MUpdateData, temp: Activity? = activity) {
 /*        if (!isFinishing && !isDestroyed) {*/
-        temp?.let{
+        temp?.let {
             val alertDialogBuilder = AlertDialog.Builder(temp)
-            val title:String=obj.update_title?:temp.getString(R.string.youAreNotUpdatedTitle)
-            val message:String=obj.update_message?:temp.getString(R.string.youAreNotUpdatedMessage) + " " + obj.version_name + temp.getString(R.string.youAreNotUpdatedMessage1)
-           //alertDialogBuilder.setTitle( Html.fromHtml(title))
-            alertDialogBuilder.setTitle(     HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_LEGACY))
-            alertDialogBuilder.setMessage(
-                //Html.fromHtml(message)
-                        HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val title: String = obj.update_title ?: temp.getString(R.string.youAreNotUpdatedTitle)
+            val message: String = obj.update_message
+                ?: temp.getString(R.string.youAreNotUpdatedMessage) + " " + obj.version_name + temp.getString(
+                    R.string.youAreNotUpdatedMessage1
+                )
+            //alertDialogBuilder.setTitle( Html.fromHtml(title))
+            alertDialogBuilder.setTitle(
+                HtmlCompat.fromHtml(
+                    title,
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
             )
+            // Linkify the message
+            val s: SpannableString =
+                SpannableString(message); // msg should have url to enable clicking
+            Linkify.addLinks(s, Linkify.WEB_URLS);
+            alertDialogBuilder.setMessage(s)
+            /*   alertDialogBuilder.setMessage(
+                   //Html.fromHtml(message)
+                   HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            )   */
 
             val packagename = "com.jpndev.player"
-            alertDialogBuilder.setCancelable(!obj.is_force_update)
-            if(!obj.is_force_update)
+            alertDialogBuilder.setCancelable(!obj.force_update)
+            if (!obj.force_update)
                 alertDialogBuilder.setNegativeButton("cancel") { dialog, id -> //getPackageName()
-             /*       val intent = Intent(activity, HomeActivity::class.java)
-                    startActivity(intent)*/
+                    /*       val intent = Intent(activity, HomeActivity::class.java)
+                           startActivity(intent)*/
                     dialog.cancel()
                     showMainAcivity()
                 }
@@ -193,10 +195,11 @@ class SplashViewModel (
                 )
                 dialog.cancel()
             }
-            //   alertDialogBuilder.show();
             val alert = alertDialogBuilder.create()
             alert.show()
-       /* }*/
+            // Make the textview clickable. Must be called after show()
+            alert.findViewById<TextView>(android.R.id.message)
+                ?.setMovementMethod(LinkMovementMethod.getInstance())
         }
     }
 }
