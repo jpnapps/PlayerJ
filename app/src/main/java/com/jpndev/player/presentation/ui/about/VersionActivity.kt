@@ -17,7 +17,6 @@ class VersionActivity : AppCompatActivity() {
         setContentView(binding.root)
         val versionName = BuildConfig.VERSION_NAME
         binding.latestversionCtxv.text = "Version " + versionName
-        // defSetText(version_ctxv,"Version "+versionName)
         //close_dimv.setOnClickListener(View.OnClickListener { onBackFinish() })
     }
 
