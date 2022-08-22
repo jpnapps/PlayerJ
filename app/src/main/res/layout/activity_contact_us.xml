@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.jpndev.player.presentation.ui.contact.ContactUsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/Base_Home_2.MM"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_h_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_h_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_v_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.02" />
+
+        <com.jpndev.player.custom.DeviceFitImageView
+
+            android:id="@+id/backDimv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_2sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back_24"
+            app:height_percentage="4"
+            app:layout_constraintLeft_toRightOf="@+id/guideline_h_left"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_v_top"
+            app:parameter="fixed_ratio"
+            app:width_percentage="10" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contactusTXV"
+            style="@style/ViewWrapContent.ToolbarTextViewLeft"
+            android:text="@string/contact_us"
+            app:layout_constraintBottom_toBottomOf="@+id/backDimv"
+            app:layout_constraintLeft_toRightOf="@+id/backDimv"
+            app:layout_constraintTop_toTopOf="@+id/backDimv" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_lefticon_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.12" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_righticon_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.88" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_v_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_white_bg"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_v_15">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/appname_ctxv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_playerj_anim_2" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_v_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.30" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contact_card"
+            style="@style/ConstraintHeightWrapSection.BASE_CARD_4"
+            android:onClick="@{() -> viewmodel.openInEmail()}"
+            app:layout_constraintLeft_toRightOf="@+id/guideline_lefticon_right"
+            app:layout_constraintRight_toLeftOf="@+id/guideline_righticon_left"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_v_30">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/rl_email"
+                style="@style/ViewSection.ContactUsCardViewStyle">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_email_us_at_header"
+                    style="@style/ViewWrapContent.ContactUsTextView.HeaderTextView"
+                    android:text="@string/contact_us_email_us" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_email_us_at_email"
+                    style="@style/ViewWrapContent.ContactUsTextView"
+                    android:text="@{ viewmodel.contact_us_email}"
+                    android:textSize="@dimen/contact_us_email_text" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

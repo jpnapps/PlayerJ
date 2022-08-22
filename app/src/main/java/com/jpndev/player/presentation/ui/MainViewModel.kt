@@ -17,19 +17,14 @@ import com.jpndev.player.MainActivity
 import com.jpndev.player.R
 import com.jpndev.player.data.model.APIResponse
 import com.jpndev.player.data.model.MUpdateData
-import com.jpndev.player.data.model.PJUrl
 import com.jpndev.player.data.util.Resource
 import com.jpndev.player.domain.usecase.UseCase
 import com.jpndev.player.presentation.ui.video.CastPlayActivity
-import com.jpndev.player.presentation.ui.video.PlayActivity
-import com.jpndev.player.presentation.ui.video.VFolderActivity
-import com.jpndev.player.presentation.ui.video.VideoPlayerActivity
-import dagger.Provides
+import com.jpndev.player.presentation.ui.video.VFolderDetailActivity
+import com.jpndev.player.utils.constants.Common.ID_VIDEO_FOLDER_PATH
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 const val IS_WEBURL = "weburl"
 const val HOME_WEBURL = "https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4"
@@ -37,9 +32,7 @@ const val HOME_WEBURL = "https://www.rmp-streaming.com/media/big-buck-bunny-360p
 class MainViewModel(
     private val app: Application,
     public val usecase: UseCase
-
 ) : AndroidViewModel(app) {
-    //  private var videosFiles = ArrayList<VideosFiles>()
     private var videoFolderList = ArrayList<String>()
     val mld_Progress: MutableLiveData<Resource<VideosFiles>> = MutableLiveData()
     val mld_videofiles: MutableLiveData<ArrayList<VideosFiles>> = MutableLiveData()
@@ -47,14 +40,14 @@ class MainViewModel(
 
     init {
         viewModelScope.launch {
-            if (usecase.prefUtils.isFirstRun()) {
+            /*if (usecase.prefUtils.isFirstRun()) {
                 val newRowId = usecase.executeSavePJUrl(PJUrl(url = HOME_WEBURL))
                 if (newRowId > -1) {
                     usecase.logsource.addLog("SavePJUrl Added Successfully $newRowId")
                 } else {
                     usecase.logsource.addLog("SavePJUrl Error Occurred")
                 }
-            }
+            }*/
         }
     }
 
@@ -76,21 +69,26 @@ class MainViewModel(
     }
 
     fun showPlayActivity(temp: Activity? = activity, path: String) = viewModelScope.launch {
-        val intent = Intent(temp, PlayActivity::class.java)
-        //  val intent = Intent(temp, CastPlayActivity::class.java)
-        //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        // val intent = Intent(temp, PlayActivity::class.java)
+        val intent = Intent(temp, CastPlayActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         //2208
         intent.putExtra("path", path)
 
         //  intent.putExtra("path", "https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4")
-        intent.putExtra(IS_WEBURL, false)
+        //intent.putExtra(IS_WEBURL, false)
         activity?.startActivity(intent)
     }
 
+    /**
+     * Method to open VideoFolder Detail screen
+     * @param temp: Activity, calling activity
+     * @param item: String, calling activity
+     * */
     fun showVFolderActivity(temp: Activity? = activity, item: String) = viewModelScope.launch {
-        val intent = Intent(temp, VFolderActivity::class.java)
+        val intent = Intent(temp, VFolderDetailActivity::class.java)
         //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        intent.putExtra("carpetaNombre", item)
+        intent.putExtra(ID_VIDEO_FOLDER_PATH, item)
         activity?.startActivity(intent)
     }
 
@@ -113,10 +111,12 @@ class MainViewModel(
         MediaStore.Video.Media.DISPLAY_NAME
     )
     val videoUriExternal: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+    var orderBy = MediaStore.Video.Media.DATE_TAKEN
     fun refreshLocalVideos(context: Context = app) {
         val tempVideosFiles = ArrayList<VideosFiles>()
-        val cursor = context.contentResolver.query(videoUriExternal, video_projection,
-            null, null, null, null
+        val cursor = context.contentResolver.query(
+            videoUriExternal, video_projection,
+            null, null, orderBy + " DESC", null
         )
         // if cursor not null then iterate it 
         if (cursor != null) {
@@ -141,15 +141,16 @@ class MainViewModel(
                     val subString = path.substring(0, primerIndex)
                     val index = subString.lastIndexOf("/")
                     val folderName = subString.substring(index + 1, primerIndex)
-                    addCursorLogs(path, fileName, sizeFile, dateAdded, duration, fullFileName,
-                        stringDuration, primerIndex, subString, folderName
-                    )
+                    /* addCursorLogs(path, fileName, sizeFile, dateAdded, duration, fullFileName,
+                         stringDuration, primerIndex, subString, folderName
+                     )*/
                     //if videoFolderList not contains foldername,then add it
                     if (!videoFolderList.contains(folderName))
                         videoFolderList.add(folderName)
                     //video add to temp video files list
                     tempVideosFiles.add(
-                        VideosFiles(id, path, fileName, fullFileName, sizeFile,
+                        VideosFiles(
+                            id, path, fileName, fullFileName, sizeFile,
                             dateAdded, stringDuration
                         )
                     )
@@ -340,11 +341,10 @@ class MainViewModel(
             alertDialogBuilder.setTitle(Html.fromHtml(fileName))
             alertDialogBuilder.setMessage(
                 Html.fromHtml(message)
-
             )
             val packagename = "com.jpndev.player"
-            alertDialogBuilder.setCancelable(!obj.is_force_update)
-            if (!obj.is_force_update)
+            alertDialogBuilder.setCancelable(!obj.force_update)
+            if (!obj.force_update)
                 alertDialogBuilder.setNegativeButton("cancel") { dialog, id -> //getPackageName()
                     /*       val intent = Intent(activity, HomeActivity::class.java)
                            startActivity(intent)*/

@@ -5,8 +5,10 @@ import com.jpndev.player.domain.usecase.UseCase
 import com.jpndev.player.presentation.ui.SplashVMFactory
 import com.jpndev.player.presentation.ui.manage_log.ViewLogosViewModelFactory
 import com.jpndev.player.presentation.ui.topqa.QAViewModelFactory
+import com.jpndev.player.ui.manage_log.ContactUsVMFactory
 import com.jpndev.player.ui.manage_log.MainVMFactory
 import com.jpndev.player.ui.manage_log.PlayEditVMFactory
+import com.jpndev.player.ui.manage_log.VideoFolderVMFactory
 
 
 import dagger.Module
@@ -29,7 +31,6 @@ class FactoryModule {
       return QAViewModelFactory(
           application,
           useCase
-
       )
   }
     @Singleton
@@ -41,7 +42,6 @@ class FactoryModule {
         return MainVMFactory(
             application,
             useCase
-
         )
     }
     @Singleton
@@ -53,7 +53,6 @@ class FactoryModule {
         return ViewLogosViewModelFactory(
             application,
             useCase
-
         )
     }
     @Singleton
@@ -65,7 +64,6 @@ class FactoryModule {
         return SplashVMFactory(
             application,
             useCase
-
         )
     }
 
@@ -78,7 +76,30 @@ class FactoryModule {
         return PlayEditVMFactory(
             application,
             useCase
+        )
+    }
 
+    @Singleton
+    @Provides
+    fun provideContactUsVMFactory(
+        application: Application,
+        useCase: UseCase
+    ): ContactUsVMFactory {
+        return ContactUsVMFactory(
+            application,
+            useCase
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideVideoFolderVMFactory(
+        application: Application,
+        useCase: UseCase
+    ): VideoFolderVMFactory {
+        return VideoFolderVMFactory(
+            application,
+            useCase
         )
     }
   /*  @Singleton

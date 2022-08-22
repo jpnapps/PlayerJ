@@ -15,7 +15,10 @@ interface AppRepository {
     fun getPItems(): Flow<List<PItem>>
 
     suspend fun getUpdateData( ): Resource<MUpdateData>
-
+    suspend fun saveAPPDatatoDb(item : MUpdateData):Long
+    suspend fun getAPPDataFromDB(): MUpdateData
+     fun getAPPDataFromDB2(): MUpdateData
+    suspend fun deleteAppDataFromDB()
 
     suspend fun savePJUrl(item: PJUrl): Long
     suspend fun updatePJUrl(item: PJUrl): Int

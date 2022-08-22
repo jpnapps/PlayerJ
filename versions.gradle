@@ -9,8 +9,8 @@ ext {
 
 
     //local db
-     room_version = "2.3.0"
-
+    // room_version = "2.3.0"
+    room_version = "2.4.2"
     //Glide
      Glide_version = "4.12.0"
 

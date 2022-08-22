@@ -11,7 +11,7 @@ import java.io.Serializable
 )
 data class Article(
     @PrimaryKey(autoGenerate = true)
-    val id:Int?=null,
+    var id:Int?=null,
     @SerializedName("text1")
     val text1: String?,
     @SerializedName("text2")

@@ -12,7 +12,7 @@ import java.io.Serializable
 )
 data class PItem   (
     @PrimaryKey(autoGenerate = true)
-    val id:Int?=null,
+    var id:Int?=null,
 
     @SerializedName("key1")
     var key1: String="Username",
@@ -48,7 +48,7 @@ data class PItem   (
 )
 data class PJUrl   (
     @PrimaryKey(autoGenerate = true)
-    val id:Int?=null,
+    var id:Int?=null,
 
     @SerializedName("url")
     var url: String= HOME_WEBURL,

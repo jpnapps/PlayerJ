@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.Flow
 interface ArticleDAO {
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
-    suspend fun insert(QA: Article)
+    suspend fun insert(QA: Article): Long
 
     @Query("DELETE FROM article_table")
-    suspend fun deleteAllArticle()
+    suspend fun deleteAllArticle(): Integer
 
     @Delete
-    suspend fun delete(QA: Article)
+    suspend fun delete(QA: Article): Integer
 
 
     @Query("SELECT * FROM article_table")

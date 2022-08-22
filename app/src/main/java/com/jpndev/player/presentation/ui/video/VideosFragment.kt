@@ -27,33 +27,33 @@ class VideosFragment() : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         (activity as MainActivity).logSourceImpl.addLog("VF onCreateView")
-        viewModel=(activity as MainActivity).viewMainModel
-        itemAdapter=(activity as MainActivity).video_adapter
+        viewModel = (activity as MainActivity).viewMainModel
+        itemAdapter = (activity as MainActivity).video_adapter
         (activity as MainActivity).logSourceImpl.addLog("VF onCreateView attached ")
-        itemAdapter.viewModel=viewModel
+        itemAdapter.viewModel = viewModel
         val view = inflater.inflate(R.layout.fragment_videos, container, false)
         val recyclerView = view.findViewById(R.id.videosRV) as RecyclerView
         initRcv(recyclerView)
 
-            viewModel.mld_videofiles.observe(viewLifecycleOwner,{
-                (activity as MainActivity).logSourceImpl.addLog("VF observe size "+it?.size)
-                itemAdapter.differ.submitList(it)
+        viewModel.mld_videofiles.observe(viewLifecycleOwner, {
+            (activity as MainActivity).logSourceImpl.addLog("VF observe size " + it?.size)
+            itemAdapter.differ.submitList(it)
 
-            })
+        })
 
-   /*     if( videosFiles != null || videosFiles.size > 0 ) {
-            val videoAdapter = VideoAdapter(view.context, this.videosFiles)
-            recyclerView.adapter = videoAdapter
-            recyclerView.layoutManager = LinearLayoutManager(context, VERTICAL, false)
-        }*/
+        /*     if( videosFiles != null || videosFiles.size > 0 ) {
+                 val videoAdapter = VideoAdapter(view.context, this.videosFiles)
+                 recyclerView.adapter = videoAdapter
+                 recyclerView.layoutManager = LinearLayoutManager(context, VERTICAL, false)
+             }*/
         return view
     }
 
-    private fun initRcv(rcv:RecyclerView) {
+    private fun initRcv(rcv: RecyclerView) {
         //  pitemadapter= NewsAdapter()
         rcv.apply {
             layoutManager = LinearLayoutManager(context, VERTICAL, false)
-            adapter=itemAdapter
+            adapter = itemAdapter
             //addOnScrollListener(this@PManageActivity.onScrollListner)
         }
 

@@ -32,7 +32,7 @@ class AFolderFragment() : Fragment() {
         viewModel=(activity as MainActivity).viewMainModel
         itemAdapter=(activity as MainActivity).vfolder_adapter
         (activity as MainActivity).logSourceImpl.addLog("AFF onCreateView attached ")
-        itemAdapter.viewModel=viewModel
+        itemAdapter.setViewModel(viewModel)
 
         val view = inflater.inflate(R.layout.fragment_vfolder, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.VFolderRV)
