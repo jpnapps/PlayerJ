@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-
-
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
@@ -50,11 +48,11 @@ android {
 
             release {
                 //    storeFile file(project.property("MyApp.signing"))
-                /*    storeFile file('../playerj.jks')
-                    storePassword project.property("MyApp.signing.password")
+                    storeFile file('../playerj.jks')
+                    storePassword "jpn#playerj7"
                     keyAlias project.property("MyApp.signing.alias")
-                    keyPassword project.property("MyApp.signing.alias.password")
-                    v2SigningEnabled false*/
+                    keyPassword "jpn#playerj7"
+                    v2SigningEnabled false
             }
         }
 
@@ -62,7 +60,7 @@ android {
         buildTypes {
             release {
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                // signingConfig signingConfigs.release
+               // signingConfig signingConfigs.release
                 minifyEnabled false
                 debuggable false
             }
